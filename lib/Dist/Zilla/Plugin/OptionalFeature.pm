@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::OptionalFeature;
-# ABSTRACT: ...
+# ABSTRACT: Specify prerequisites for optional features in your dist
 
 use Moose;
 with
@@ -132,21 +132,99 @@ __END__
 
 =head1 SYNOPSIS
 
-    use Dist::Zilla::Plugin::OptionalFeature;
+In your F<dist.ini>:
 
-    ...
+    [OptionalFeature / XS Support]
+    description = XS implementation (faster, requires a compiler)
+    Foo::Bar::XS = 1.002
 
 =head1 DESCRIPTION
 
-...
+This plugin provides a mechanism for specifying prerequisites for optional
+features in metadata, which should cause CPAN clients to interactively prompt
+you regarding these features at install time.
 
-=head1 FUNCTIONS/METHODS
+The feature I<name> and I<description> are required. The name can be extracted
+from the plugin name.
+
+You can specify requirements for different phases and relationships with:
+
+    [OptionalFeatures / Feature name]
+    description = description
+    -phase = test
+    -relationship = requires
+    Fitz::Fotz    = 1.23
+    Text::SoundEx = 3
+
+If not provided, C<-phase> defaults to C<runtime>, and C<-relationship> to
+C<requires>.
+
+To specify feature requirements for multiple phases, provide them as separate
+plugin configurations (keeping the feature name and description constant):
+
+    [OptionalFeatures / Feature name]
+    description = description
+    -phase = runtime
+    Foo::Bar = 0
+
+    [OptionalFeatures / Feature name]
+    description = description
+    -phase = test
+    Foo::Baz = 0
+
+It is possible that future versions of this plugin may allow a more compact
+way of providing sophisticated prerequisite specifications.
+
+If the plugin name is the CamelCase concatenation of a phase and relationship
+(or just a relationship), it will set those parameters implicitly.  If you use
+a custom name, but it does not specify the relationship, and you didn't
+specify either or both of C<-phase> or C<-relationship>, these values default
+to C<runtime> and C<requires> respectively.
+
+The example below is equivalent to the synopsis example above, except for the
+name of the resulting plugin:
+
+    [OptionalFeature]
+    name = XS Support
+    description = XS implementation (faster, requires a compiler)
+    -phase = runtime
+    -relationship = requires
+    Foo::Bar::XS = 1.002
+
+=for Pod::Coverage mvp_aliases metadata register_prereqs
+
+=head1 CONFIG OPTIONS
+
+This is mostly a restating of the information above.
 
 =over 4
 
-=item * C<foo>
+=item * C<name>
 
-...
+The name of the optional feature, to be presented to the user. Can also be
+extracted from the plugin name.
+
+=item * C<description>
+
+Required. The description of the optional feature, to be presented to the
+user.
+
+=item * C<always_recommend>
+
+If set with a true value, the prerequisites are added to the distribution's
+metadata as recommended prerequisites (e.g. L<cpanminus> will install
+recommendations with C<--with-recommends>, even when running
+non-interactively).
+
+=item * C<-phase>
+
+The phase of the prequisite(s). Should be one of: build, test, runtime,
+configure, or develop.
+
+=item * C<-relationship>
+
+The relationship of the prequisite(s). Should be one of: requires, recommends,
+suggests, or conflicts.
 
 =back
 
@@ -158,15 +236,13 @@ Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Di
 (or L<bug-Dist-Zilla-Plugin-OptionalFeature@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-OptionalFeature@rt.cpan.org>).
 I am also usually active on irc, as 'ether' at C<irc.perl.org>.
 
-=head1 ACKNOWLEDGEMENTS
-
-...
-
 =head1 SEE ALSO
 
 =begin :list
 
-* L<foo>
+* L<CPAN::Meta::Spec/optional_features>
+
+* L<Module::Install/features, feature (Module:Install::Metadata)>
 
 =end :list
 
