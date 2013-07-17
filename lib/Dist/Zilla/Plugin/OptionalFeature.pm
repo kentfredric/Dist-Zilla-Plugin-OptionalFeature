@@ -164,7 +164,7 @@ from the plugin name.
 
 You can specify requirements for different phases and relationships with:
 
-    [OptionalFeatures / Feature name]
+    [OptionalFeature / Feature name]
     description = description
     -phase = test
     -relationship = requires
@@ -177,12 +177,12 @@ C<requires>.
 To specify feature requirements for multiple phases, provide them as separate
 plugin configurations (keeping the feature name and description constant):
 
-    [OptionalFeatures / Feature name]
+    [OptionalFeature / Feature name]
     description = description
     -phase = runtime
     Foo::Bar = 0
 
-    [OptionalFeatures / Feature name]
+    [OptionalFeature / Feature name]
     description = description
     -phase = test
     Foo::Baz = 0
