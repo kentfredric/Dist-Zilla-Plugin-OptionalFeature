@@ -257,7 +257,7 @@ I am also usually active on irc, as 'ether' at C<irc.perl.org>.
 
 * L<CPAN::Meta::Spec/optional_features>
 
-* L<Module::Install/features, feature (Module:Install::Metadata)>
+* L<Module::Install::API/features, feature (Module::Install::Metadata)>
 
 =end :list
 
