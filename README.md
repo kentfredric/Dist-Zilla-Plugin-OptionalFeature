@@ -4,14 +4,14 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
 In your `dist.ini`:
 
     [OptionalFeature / XS Support]
-    description = XS implementation (faster, requires a compiler)
+    -description = XS implementation (faster, requires a compiler)
     Foo::Bar::XS = 1.002
 
 # DESCRIPTION
@@ -25,8 +25,8 @@ from the plugin name.
 
 You can specify requirements for different phases and relationships with:
 
-    [OptionalFeatures / Feature name]
-    description = description
+    [OptionalFeature / Feature name]
+    -description = description
     -phase = test
     -relationship = requires
     Fitz::Fotz    = 1.23
@@ -38,13 +38,13 @@ If not provided, `-phase` defaults to `runtime`, and `-relationship` to
 To specify feature requirements for multiple phases, provide them as separate
 plugin configurations (keeping the feature name and description constant):
 
-    [OptionalFeatures / Feature name]
-    description = description
+    [OptionalFeature / Feature name]
+    -description = description
     -phase = runtime
     Foo::Bar = 0
 
-    [OptionalFeatures / Feature name]
-    description = description
+    [OptionalFeature / Feature name]
+    -description = description
     -phase = test
     Foo::Baz = 0
 
@@ -61,8 +61,8 @@ The example below is equivalent to the synopsis example above, except for the
 name of the resulting plugin:
 
     [OptionalFeature]
-    name = XS Support
-    description = XS implementation (faster, requires a compiler)
+    -name = XS Support
+    -description = XS implementation (faster, requires a compiler)
     -phase = runtime
     -relationship = requires
     Foo::Bar::XS = 1.002
@@ -71,17 +71,17 @@ name of the resulting plugin:
 
 This is mostly a restating of the information above.
 
-- `name`
+- `-name`
 
     The name of the optional feature, to be presented to the user. Can also be
     extracted from the plugin name.
 
-- `description`
+- `-description`
 
     The description of the optional feature, to be presented to the user.
     Defaults to the feature name, if not provided.
 
-- `always_recommend`
+- `-always_recommend`
 
     If set with a true value, the prerequisites are added to the distribution's
     metadata as recommended prerequisites (e.g. [cpanminus](http://search.cpan.org/perldoc?cpanminus) will install
@@ -93,7 +93,7 @@ This is mostly a restating of the information above.
     The phase of the prequisite(s). Should be one of: build, test, runtime,
     or develop.
 
-- `-relationship`
+- `-relationship` (or `-type`)
 
     The relationship of the prequisite(s). Should be one of: requires, recommends,
     suggests, or conflicts.
@@ -107,7 +107,7 @@ I am also usually active on irc, as 'ether' at `irc.perl.org`.
 # SEE ALSO
 
 - ["optional\_features" in CPAN::Meta::Spec](http://search.cpan.org/perldoc?CPAN::Meta::Spec#optional\_features)
-- ["features, feature (Module:Install::Metadata)" in Module::Install](http://search.cpan.org/perldoc?Module::Install#features, feature (Module:Install::Metadata))
+- ["features, feature (Module::Install::Metadata)" in Module::Install::API](http://search.cpan.org/perldoc?Module::Install::API#features, feature (Module::Install::Metadata))
 
 # AUTHOR
 
