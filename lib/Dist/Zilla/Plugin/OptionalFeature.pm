@@ -12,9 +12,14 @@ use MooseX::Types::Moose qw(HashRef Bool);
 use MooseX::Types::Common::String 'NonEmptySimpleStr';
 use namespace::autoclean;
 
-has [ qw(name description) ] => (
+has name => (
     is => 'ro', isa => NonEmptySimpleStr,
     required => 1,
+);
+has description => (
+    is => 'ro', isa => NonEmptySimpleStr,
+    lazy => 1,
+    default => sub { shift->name }
 );
 
 has always_recommend => (
@@ -213,8 +218,8 @@ extracted from the plugin name.
 
 =item * C<description>
 
-Required. The description of the optional feature, to be presented to the
-user.
+The description of the optional feature, to be presented to the user.
+Defaults to the feature name, if not provided.
 
 =item * C<always_recommend>
 

@@ -18,8 +18,7 @@ use Test::DZil;
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            description => 'desc',
-                            # use default phase, type
+                            # use default description, phase, type
                             A => 0,
                         }
                     ],
@@ -36,7 +35,7 @@ use Test::DZil;
         json(superhashof({
             optional_features => {
                 FeatureName => {
-                    description => 'desc',
+                    description => 'FeatureName',
                     prereqs => {
                         runtime => { requires => { A => 0 } },
                     },
