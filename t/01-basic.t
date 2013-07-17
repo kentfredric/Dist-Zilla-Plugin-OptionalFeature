@@ -44,7 +44,8 @@ use Test::DZil;
             },
             prereqs => {
                 test => { requires => { Tester => 0 } },
-                # no recommendations
+                # no test recommendations
+                develop => { requires => { A => 0 } },
             },
         })),
         'metadata correct when minimal config provided',
@@ -88,6 +89,7 @@ use Test::DZil;
             prereqs => {
                 test => { requires => { Tester => 0 } },
                 runtime => { recommends => { A => 0 } },
+                develop => { requires => { A => 0 } },
             },
         })),
         'metadata correct when extracting feature name, phase and relationship from name',
@@ -133,6 +135,7 @@ use Test::DZil;
                     requires => { Tester => 0 },
                     recommends => { A => 0 },
                 },
+                develop => { requires => { A => 0 } }
             },
         })),
         'metadata correct when extracting feature name and phase from name',
@@ -176,7 +179,8 @@ use Test::DZil;
             },
             prereqs => {
                 test => { requires => { Tester => 0 } },
-                # no recommendations
+                # no test recommendations
+                develop => { requires => { A => 0 } },
             },
         })),
         'metadata correct when given explicit phase',
@@ -224,7 +228,8 @@ use Test::DZil;
             },
             prereqs => {
                 test => { requires => { Tester => 0 } },
-                # no recommendations
+                # no test recommendations
+                develop => { requires => { A => 0, B => 0 } },
             },
         })),
         'metadata is merged from two plugins',

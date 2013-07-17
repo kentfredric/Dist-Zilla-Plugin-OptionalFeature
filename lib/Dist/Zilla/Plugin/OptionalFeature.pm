@@ -100,8 +100,15 @@ sub register_prereqs
 {
     my $self = shift;
 
-    return if not $self->always_recommend;
+    $self->zilla->register_prereqs(
+        {
+            type  => 'requires',
+            phase => 'develop',
+        },
+        %{ $self->_prereqs },
+    );
 
+    return if not $self->always_recommend;
     $self->zilla->register_prereqs(
         {
             type  => 'recommends',
