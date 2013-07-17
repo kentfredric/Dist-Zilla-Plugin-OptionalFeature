@@ -89,6 +89,9 @@ around BUILDARGS => sub
         }
     }
 
+    confess 'optional features may not use the configure phase'
+        if $phase and $phase eq 'configure';
+
     return {
         zilla => $zilla,
         plugin_name => $plugin_name,
@@ -231,7 +234,7 @@ non-interactively).
 =item * C<-phase>
 
 The phase of the prequisite(s). Should be one of: build, test, runtime,
-configure, or develop.
+or develop.
 
 =item * C<-relationship>
 
