@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - a use of $` has been replaced with ${^PREMATCH}, which requires perl
+            5.9.5 (RT#86989)
 
 0.002     2013-07-16 22:31:11 PDT-0700 (Karen Etheridge)
           - name, description, and always_recommend options are now prefaced

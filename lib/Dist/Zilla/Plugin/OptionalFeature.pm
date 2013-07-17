@@ -77,9 +77,9 @@ around BUILDARGS => sub
         if ($feature_name =~ / -
                 (Build|Test|Runtime|Configure|Develop)
                 (Requires|Recommends|Suggests|Conflicts)?
-            \z/x)
+            \z/xp)
         {
-            $feature_name = $`;
+            $feature_name = ${^PREMATCH};
             $phase ||= lc($1) if $1;
             $type = lc($2) if $2;
         }
