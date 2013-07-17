@@ -245,7 +245,7 @@ use Test::DZil;
                         [ GatherDir => ],
                         [ MetaJSON  => ],
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
-                        [ OptionalFeature => {
+                        [ OptionalFeature => FeatureName => {
                                 _prereq_phase => 'test',
                                 description => 'desc',
                                 A => 0,
