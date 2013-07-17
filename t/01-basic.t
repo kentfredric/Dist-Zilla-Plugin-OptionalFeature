@@ -61,8 +61,8 @@ use Test::DZil;
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-RuntimeRequires' => {
-                            description => 'desc',
-                            always_recommend => 1,
+                            -description => 'desc',
+                            -always_recommend => 1,
                             A => 0,
                         }
                     ],
@@ -105,8 +105,8 @@ use Test::DZil;
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
-                            description => 'desc',
-                            always_recommend => 1,
+                            -description => 'desc',
+                            -always_recommend => 1,
                             A => 0,
                         }
                     ],
@@ -151,7 +151,7 @@ use Test::DZil;
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            description => 'desc',
+                            -description => 'desc',
                             -phase => 'test',
                             # use default relationship
                             A => 0,
@@ -195,13 +195,58 @@ use Test::DZil;
                     [ GatherDir => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
+                    [ OptionalFeature => FeatureName => {
+                            -description => 'desc',
+                            -phase => 'test',
+                            -relationship => 'suggests',
+                            A => 0,
+                        }
+                    ],
+                ),
+            },
+        },
+    );
+
+    $tzil->build;
+    my $json = $tzil->slurp_file('build/META.json');
+
+    cmp_deeply(
+        $json,
+        json(superhashof({
+            optional_features => {
+                FeatureName => {
+                    description => 'desc',
+                    prereqs => {
+                        test => { suggests => { A => 0 } },
+                    },
+                },
+            },
+            prereqs => {
+                test => { requires => { Tester => 0 } },
+                # no test recommendations
+                develop => { requires => { A => 0 } },
+            },
+        })),
+        'metadata correct when given explicit phase and relationship',
+    );
+}
+
+{
+    my $tzil = Builder->from_config(
+        { dist_root => 't/corpus/dist/DZT' },
+        {
+            add_files => {
+                'source/dist.ini' => simple_ini(
+                    [ GatherDir => ],
+                    [ MetaJSON  => ],
+                    [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
-                            description => 'desc',
+                            -description => 'desc',
                             A => 0,
                         }
                     ],
                     [ OptionalFeature => 'FeatureName-Runtime' => {
-                            description => 'desc',
+                            -description => 'desc',
                             B => 0,
                         }
                     ],
@@ -247,7 +292,7 @@ use Test::DZil;
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 _prereq_phase => 'test',
-                                description => 'desc',
+                                -description => 'desc',
                                 A => 0,
                             }
                         ],

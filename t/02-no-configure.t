@@ -18,7 +18,7 @@ use Test::DZil;
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 -phase => 'configure',
-                                description => 'desc',
+                                -description => 'desc',
                                 A => 0,
                             }
                         ],

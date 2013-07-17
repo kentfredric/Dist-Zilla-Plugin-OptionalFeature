@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - name, description, and always_recommend options are now prefaced
+            with dashes, just like -phase and -relationship (to avoid naming
+            conflicts)
 
 0.001     2013-07-16 21:24:19 PDT-0700 (Karen Etheridge)
           - Initial release.
