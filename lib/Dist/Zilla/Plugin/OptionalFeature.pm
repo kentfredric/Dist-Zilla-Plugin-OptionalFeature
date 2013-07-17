@@ -136,7 +136,7 @@ sub metadata
     };
 }
 
-1;
+__PACKAGE__->meta->make_immutable;
 __END__
 
 =pod
