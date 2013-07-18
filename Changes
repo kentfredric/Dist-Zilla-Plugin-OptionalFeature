@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2013-07-18 10:35:20 PDT-0700 (Karen Etheridge)
           - a use of $` has been replaced with ${^PREMATCH}, which requires perl
             5.9.5 (RT#86989)
 
