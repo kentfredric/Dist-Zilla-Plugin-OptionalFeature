@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now setting dynamic_config => 1 in metadata, as directed in
+            CPAN::Meta::Spec
 
 0.003     2013-07-18 10:35:20 PDT-0700 (Karen Etheridge)
           - a use of $` has been replaced with ${^PREMATCH}, which requires perl

@@ -127,6 +127,7 @@ sub metadata
     my $self = shift;
 
     return {
+        dynamic_config => 1,
         optional_features => {
             $self->name => {
                 description => $self->description,
