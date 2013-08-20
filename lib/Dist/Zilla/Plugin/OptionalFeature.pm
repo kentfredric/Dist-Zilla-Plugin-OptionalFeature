@@ -154,7 +154,8 @@ In your F<dist.ini>:
 
 This plugin provides a mechanism for specifying prerequisites for optional
 features in metadata, which should cause CPAN clients to interactively prompt
-you regarding these features at install time.
+you regarding these features at install time (assuming interactivity is turned
+on: e.g. C<< cpanm --interactive Foo::Bar >>).
 
 The feature I<name> and I<description> are required. The name can be extracted
 from the plugin name.
