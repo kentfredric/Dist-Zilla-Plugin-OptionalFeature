@@ -127,7 +127,8 @@ sub metadata
     my $self = shift;
 
     return {
-        dynamic_config => 1,
+        # dynamic_config is NOT set, on purpose -- normally the CPAN client
+        # does the user interrogation, not Makefile.PL/Build.PL
         optional_features => {
             $self->name => {
                 description => $self->description,
