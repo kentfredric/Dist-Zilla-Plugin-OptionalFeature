@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.004
+version 0.005
 
 # SYNOPSIS
 
@@ -18,7 +18,8 @@ In your `dist.ini`:
 
 This plugin provides a mechanism for specifying prerequisites for optional
 features in metadata, which should cause CPAN clients to interactively prompt
-you regarding these features at install time.
+you regarding these features at install time (assuming interactivity is turned
+on: e.g. `cpanm --interactive Foo::Bar`).
 
 The feature _name_ and _description_ are required. The name can be extracted
 from the plugin name.
