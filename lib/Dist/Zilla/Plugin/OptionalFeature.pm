@@ -126,6 +126,12 @@ sub metadata
 {
     my $self = shift;
 
+    # this might be relaxed in the future -- see
+    # https://github.com/Perl-Toolchain-Gang/cpan-meta/issues/28
+    # but this is the current v2.0 spec - regexp lifted from Test::CPAN::Meta::JSON::Version
+    $self->log_fatal('invalid syntax for optional feature name \'' .  $self->name . '\'')
+        if $self->name !~ /^([a-z][_a-z]+)$/i;
+
     return {
         # dynamic_config is NOT set, on purpose -- normally the CPAN client
         # does the user interrogation, not Makefile.PL/Build.PL

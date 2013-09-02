@@ -3,6 +3,9 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - no longer setting dynamic_config => 1 -- it is generally the CPAN
             client that interrogates the user, not Makefile.PL/Build.PL
+          - detect invalid syntax in feature name (e.g. spaces are not
+            permitted), in case the dist isn't validating its metadata syntax
+            itself
 
 0.004     2013-07-29 17:29:20 PDT-0700 (Karen Etheridge)
           - now setting dynamic_config => 1 in metadata, as directed in
