@@ -8,6 +8,8 @@ use Test::Deep;
 use Test::CPAN::Meta::JSON;
 use Test::DZil;
 
+use Config::MVP::Reader::INI 2.101461;  # for spaces in section names
+
 {
     my $tzil = Builder->from_config(
         { dist_root => 't/does_not_exist' },

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - add test requirement on the minimal Config::MVP needed to handle
+            an edge case that we test our handling of
 
 0.005     2013-09-02 23:53:12Z (Karen Etheridge)
           - no longer setting dynamic_config => 1 -- it is generally the CPAN
