@@ -93,9 +93,9 @@ around BUILDARGS => sub
         plugin_name => $plugin_name,
         defined $feature_name ? ( name => $feature_name ) : (),
         defined $description ? ( description => $description ) : (),
-        always_recommend => $always_recommend,
-        $phase ? ( _prereq_phase => $phase ) : (),
-        $type ? ( _prereq_type => $type ) : (),
+        defined $always_recommend ? ( always_recommend => $always_recommend ) : (),
+        defined $phase ? ( _prereq_phase => $phase ) : (),
+        defined $type ? ( _prereq_type => $type ) : (),
         _prereqs => $args,
     };
 };
