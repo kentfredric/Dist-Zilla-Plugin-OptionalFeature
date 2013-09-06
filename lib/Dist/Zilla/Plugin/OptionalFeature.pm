@@ -253,8 +253,11 @@ If set with a true value, compliant CPAN clients will behave as if the user
 opted to install the feature's prerequisites when running non-interactively
 (when there is no opportunity to prompt the user).
 
+=for stopwords miyagawa
+
 Note that at the time of this feature's creation (September 2013), there is no
-compliant CPAN client yet.
+compliant CPAN client yet, as it invents a new C<x_default> field in metadata
+under C<optional_feature> (thanks, miyagawa!)
 
 =item * C<-phase>
 
