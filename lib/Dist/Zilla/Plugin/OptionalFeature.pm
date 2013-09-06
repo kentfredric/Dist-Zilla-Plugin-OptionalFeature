@@ -28,6 +28,12 @@ has always_recommend => (
     predicate => '_has_always_recommend',
 );
 
+has default => (
+    is => 'ro', isa => Bool,
+    predicate => '_has_default',
+    # NO DEFAULT
+);
+
 has _prereq_phase => (
     is => 'ro', isa => NonEmptySimpleStr,
     lazy => 1,
@@ -58,10 +64,11 @@ around BUILDARGS => sub
     my @private = grep { /^_/ } keys %$args;
     confess "Invalid options: @private" if @private;
 
+    # pull these out so they don't become part of our prereq list
     my ($zilla, $plugin_name) = delete @{$args}{qw(zilla plugin_name)};
 
-    my ($feature_name, $description, $always_recommend, $phase) =
-        delete @{$args}{qw(-name -description -always_recommend -phase)};
+    my ($feature_name, $description, $always_recommend, $default, $phase) =
+        delete @{$args}{qw(-name -description -always_recommend -default -phase)};
     my ($type) = grep { defined } delete @{$args}{qw(-type -relationship)};
 
     my @other_options = grep { /^-/ } keys %$args;
@@ -94,6 +101,7 @@ around BUILDARGS => sub
         defined $feature_name ? ( name => $feature_name ) : (),
         defined $description ? ( description => $description ) : (),
         defined $always_recommend ? ( always_recommend => $always_recommend ) : (),
+        defined $default ? ( default => $default ) : (),
         defined $phase ? ( _prereq_phase => $phase ) : (),
         defined $type ? ( _prereq_type => $type ) : (),
         _prereqs => $args,
@@ -134,10 +142,13 @@ sub metadata
 
     return {
         # dynamic_config is NOT set, on purpose -- normally the CPAN client
-        # does the user interrogation, not Makefile.PL/Build.PL
+        # does the user interrogation and merging of prereqs, not Makefile.PL/Build.PL
         optional_features => {
             $self->name => {
                 description => $self->description,
+                # we don't know which way this will/should default in the spec if omitted,
+                # so we only include it if the user explicitly sets it
+                $self->_has_default ? ( x_default => $self->default ) : (),
                 prereqs => { $self->_prereq_phase => { $self->_prereq_type => $self->_prereqs } },
             },
         },
@@ -235,6 +246,12 @@ If set with a true value, the prerequisites are added to the distribution's
 metadata as recommended prerequisites (e.g. L<cpanminus> will install
 recommendations with C<--with-recommends>, even when running
 non-interactively). Defaults to 0, but I recommend you turn this on.
+
+=item * C<-default>
+
+If set with a true value, compliant CPAN clients will behave as if the user
+opted to install the feature's prerequisites when running non-interactively
+(when there is no opportunity to prompt the user).
 
 =item * C<-phase>
 
