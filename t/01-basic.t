@@ -33,6 +33,7 @@ use Test::DZil;
     cmp_deeply(
         $json,
         json(superhashof({
+            dynamic_config => 0,
             optional_features => {
                 FeatureName => {
                     description => 'FeatureName',
@@ -122,6 +123,7 @@ use Test::DZil;
     cmp_deeply(
         $json,
         json(superhashof({
+            dynamic_config => 0,
             optional_features => {
                 FeatureName => {
                     description => 'desc',
@@ -169,6 +171,7 @@ use Test::DZil;
     cmp_deeply(
         $json,
         json(superhashof({
+            dynamic_config => 0,
             optional_features => {
                 FeatureName => {
                     description => 'desc',
@@ -214,6 +217,7 @@ use Test::DZil;
     cmp_deeply(
         $json,
         json(superhashof({
+            dynamic_config => 0,
             optional_features => {
                 FeatureName => {
                     description => 'desc',
@@ -262,6 +266,7 @@ use Test::DZil;
     cmp_deeply(
         $json,
         json(superhashof({
+            dynamic_config => 0,
             optional_features => {
                 FeatureName => {
                     description => 'desc',
