@@ -234,7 +234,7 @@ Defaults to the feature name, if not provided.
 If set with a true value, the prerequisites are added to the distribution's
 metadata as recommended prerequisites (e.g. L<cpanminus> will install
 recommendations with C<--with-recommends>, even when running
-non-interactively).
+non-interactively). Defaults to 0, but I recommend you turn this on.
 
 =item * C<-phase>
 
