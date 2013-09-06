@@ -253,6 +253,9 @@ If set with a true value, compliant CPAN clients will behave as if the user
 opted to install the feature's prerequisites when running non-interactively
 (when there is no opportunity to prompt the user).
 
+Note that at the time of this feature's creation (September 2013), there is no
+compliant CPAN client yet.
+
 =item * C<-phase>
 
 The phase of the prequisite(s). Should be one of: build, test, runtime,
