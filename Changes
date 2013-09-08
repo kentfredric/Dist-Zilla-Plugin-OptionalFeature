@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.006     2013-09-08 17:53:53Z (Karen Etheridge)
           - add test requirement on the minimal Config::MVP needed to handle
             an edge case that we test our handling of
           - new EXPERIMENTAL -default config option, instructing CPAN clients

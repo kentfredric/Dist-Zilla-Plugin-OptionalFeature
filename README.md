@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.005
+version 0.006
 
 # SYNOPSIS
 
@@ -87,7 +87,17 @@ This is mostly a restating of the information above.
     If set with a true value, the prerequisites are added to the distribution's
     metadata as recommended prerequisites (e.g. [cpanminus](http://search.cpan.org/perldoc?cpanminus) will install
     recommendations with `--with-recommends`, even when running
-    non-interactively).
+    non-interactively). Defaults to 0, but I recommend you turn this on.
+
+- `-default`
+
+    If set with a true value, compliant CPAN clients will behave as if the user
+    opted to install the feature's prerequisites when running non-interactively
+    (when there is no opportunity to prompt the user).
+
+    Note that at the time of this feature's creation (September 2013), there is no
+    compliant CPAN client yet, as it invents a new `x_default` field in metadata
+    under `optional_feature` (thanks, miyagawa!)
 
 - `-phase`
 
