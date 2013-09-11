@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - warnings tests bypassed during installation
 
 0.006     2013-09-08 17:53:53Z (Karen Etheridge)
           - add test requirement on the minimal Config::MVP needed to handle
