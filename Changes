@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.007     2013-09-11 05:03:52Z (Karen Etheridge)
           - warnings tests bypassed during installation
 
 0.006     2013-09-08 17:53:53Z (Karen Etheridge)
