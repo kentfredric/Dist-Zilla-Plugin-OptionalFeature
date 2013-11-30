@@ -5,7 +5,7 @@ use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Fatal;
 use Test::Deep;
-use Test::CPAN::Meta::JSON;
+use Test::CPAN::Meta::JSON::Version;
 use Test::DZil;
 
 use Config::MVP::Reader::INI 2.101461;  # for spaces in section names
