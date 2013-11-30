@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - re-release to fix compile test
 
 0.007     2013-09-11 05:03:52Z (Karen Etheridge)
           - warnings tests bypassed during installation
