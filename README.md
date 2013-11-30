@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.007
+version 0.008
 
 # SYNOPSIS
 
@@ -85,7 +85,7 @@ This is mostly a restating of the information above.
 - `-always_recommend`
 
     If set with a true value, the prerequisites are added to the distribution's
-    metadata as recommended prerequisites (e.g. [cpanminus](http://search.cpan.org/perldoc?cpanminus) will install
+    metadata as recommended prerequisites (e.g. [cpanminus](https://metacpan.org/pod/cpanminus) will install
     recommendations with `--with-recommends`, even when running
     non-interactively). Defaults to 0, but I recommend you turn this on.
 
@@ -117,8 +117,8 @@ I am also usually active on irc, as 'ether' at `irc.perl.org`.
 
 # SEE ALSO
 
-- ["optional\_features" in CPAN::Meta::Spec](http://search.cpan.org/perldoc?CPAN::Meta::Spec#optional\_features)
-- ["features, feature (Module::Install::Metadata)" in Module::Install::API](http://search.cpan.org/perldoc?Module::Install::API#features, feature (Module::Install::Metadata))
+- ["optional_features" in CPAN::Meta::Spec](https://metacpan.org/pod/CPAN::Meta::Spec#optional_features)
+- ["features, feature (Module::Install::Metadata)" in Module::Install::API](https://metacpan.org/pod/Module::Install::API#features-feature-Module::Install::Metadata)
 
 # AUTHOR
 
