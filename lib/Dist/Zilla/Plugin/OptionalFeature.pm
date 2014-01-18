@@ -109,6 +109,24 @@ around BUILDARGS => sub
     };
 };
 
+around dump_config => sub
+{
+    my $orig = shift;
+    my $self = shift;
+
+    my $config = $self->$orig;
+
+    $config->{'' . __PACKAGE__} = {
+        (map { defined $self->$_ ? ( '-' . $_ => $self->$_ ) : () }
+            qw(name description always_recommend default)),
+        '-phase' => $self->_prereq_phase,
+        '-type' => $self->_prereq_type,
+        prereqs => $self->_prereqs,
+    };
+
+    return $config;
+};
+
 sub register_prereqs
 {
     my $self = shift;

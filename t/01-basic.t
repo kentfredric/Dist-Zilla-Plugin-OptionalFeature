@@ -15,6 +15,7 @@ use Test::DZil;
             add_files => {
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
@@ -47,6 +48,23 @@ use Test::DZil;
                 # no test recommendations
                 develop => { requires => { A => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => superbagof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'FeatureName',
+                            -always_recommend => 0,
+                            -phase => 'runtime',
+                            -type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         })),
         'metadata correct when minimal config provided',
     );
@@ -59,6 +77,7 @@ use Test::DZil;
             add_files => {
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-BuildSuggests' => {
@@ -92,6 +111,23 @@ use Test::DZil;
                 build => { recommends => { A => 0 } },
                 develop => { requires => { A => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => superbagof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName-BuildSuggests',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'desc',
+                            -always_recommend => 1,
+                            -phase => 'build',
+                            -type => 'suggests',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         })),
         'metadata correct when extracting feature name, phase and relationship from name',
     );
@@ -104,6 +140,7 @@ use Test::DZil;
             add_files => {
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
@@ -139,6 +176,23 @@ use Test::DZil;
                 },
                 develop => { requires => { A => 0 } }
             },
+            x_Dist_Zilla => superhashof({
+                plugins => superbagof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName-Test',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'desc',
+                            -always_recommend => 1,
+                            -phase => 'test',
+                            -type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         })),
         'metadata correct when extracting feature name and phase from name',
     );
@@ -151,6 +205,7 @@ use Test::DZil;
             add_files => {
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
@@ -185,6 +240,23 @@ use Test::DZil;
                 # no test recommendations
                 develop => { requires => { A => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => superbagof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'desc',
+                            -always_recommend => 0,
+                            -phase => 'test',
+                            -type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         })),
         'metadata correct when given explicit phase',
     );
@@ -197,6 +269,7 @@ use Test::DZil;
             add_files => {
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
@@ -231,6 +304,23 @@ use Test::DZil;
                 # no test recommendations
                 develop => { requires => { A => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => superbagof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'desc',
+                            -always_recommend => 0,
+                            -phase => 'test',
+                            -type => 'suggests',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         })),
         'metadata correct when given explicit phase and relationship',
     );
@@ -243,6 +333,7 @@ use Test::DZil;
             add_files => {
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
@@ -281,6 +372,38 @@ use Test::DZil;
                 # no test recommendations
                 develop => { requires => { A => 0, B => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => superbagof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName-Test',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'desc',
+                            -always_recommend => 0,
+                            -phase => 'test',
+                            -type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                },
+                {
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName-Runtime',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            -name => 'FeatureName',
+                            -description => 'desc',
+                            -always_recommend => 0,
+                            -phase => 'runtime',
+                            -type => 'requires',
+                            prereqs => { B => 0 },
+                        },
+                    },
+                }),
+            }),
         })),
         'metadata is merged from two plugins',
     );
