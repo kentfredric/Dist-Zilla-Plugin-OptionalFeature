@@ -5,35 +5,35 @@ Revision history for {{$dist->name}}
 0.008     2013-11-30 17:26:03Z
           - re-release to fix compile test
 
-0.007     2013-09-11 05:03:52Z (Karen Etheridge)
+0.007     2013-09-11 05:03:52Z
           - warnings tests bypassed during installation
 
-0.006     2013-09-08 17:53:53Z (Karen Etheridge)
+0.006     2013-09-08 17:53:53Z
           - add test requirement on the minimal Config::MVP needed to handle
             an edge case that we test our handling of
           - new EXPERIMENTAL -default config option, instructing CPAN clients
             to install the features when running non-interactively
 
-0.005     2013-09-02 23:53:12Z (Karen Etheridge)
+0.005     2013-09-02 23:53:12Z
           - no longer setting dynamic_config => 1 -- it is generally the CPAN
             client that interrogates the user, not Makefile.PL/Build.PL
           - detect invalid syntax in feature name (e.g. spaces are not
             permitted), in case the dist isn't validating its metadata syntax
             itself
 
-0.004     2013-07-29 17:29:20 PDT-0700 (Karen Etheridge)
+0.004     2013-07-30 00:29:20Z
           - now setting dynamic_config => 1 in metadata, as directed in
             CPAN::Meta::Spec
 
-0.003     2013-07-18 10:35:20 PDT-0700 (Karen Etheridge)
+0.003     2013-07-18 17:35:20Z
           - a use of $` has been replaced with ${^PREMATCH}, which requires perl
             5.9.5 (RT#86989)
 
-0.002     2013-07-16 22:31:11 PDT-0700 (Karen Etheridge)
+0.002     2013-07-17 05:31:11Z
           - name, description, and always_recommend options are now prefaced
             with dashes, just like -phase and -relationship (to avoid naming
             conflicts)
 
-0.001     2013-07-16 21:24:19 PDT-0700 (Karen Etheridge)
+0.001     2013-07-17 04:24:19Z
           - Initial release.
 
