@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix config section in generated metadata that was not
+            spec-compliant
 
 0.009     2014-01-18 20:41:13Z
           - include our full config data in target dist's metadata

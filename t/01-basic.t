@@ -8,6 +8,9 @@ use Test::Deep;
 use Test::Deep::JSON;
 use Test::DZil;
 
+use lib 't/lib';
+use SpecCompliant;
+
 {
     my $tzil = Builder->from_config(
         { dist_root => 't/does_not_exist' },
@@ -16,6 +19,7 @@ use Test::DZil;
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
@@ -55,11 +59,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'FeatureName',
-                            -always_recommend => 0,
-                            -phase => 'runtime',
-                            -type => 'requires',
+                            name => 'FeatureName',
+                            description => 'FeatureName',
+                            always_recommend => 0,
+                            phase => 'runtime',
+                            type => 'requires',
                             prereqs => { A => 0 },
                         },
                     },
@@ -68,6 +72,8 @@ use Test::DZil;
         })),
         'metadata correct when minimal config provided',
     );
+
+    is_valid_spec($tzil);
 }
 
 {
@@ -78,6 +84,7 @@ use Test::DZil;
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-BuildSuggests' => {
@@ -118,11 +125,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'desc',
-                            -always_recommend => 1,
-                            -phase => 'build',
-                            -type => 'suggests',
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 1,
+                            phase => 'build',
+                            type => 'suggests',
                             prereqs => { A => 0 },
                         },
                     },
@@ -131,6 +138,8 @@ use Test::DZil;
         })),
         'metadata correct when extracting feature name, phase and relationship from name',
     );
+
+    is_valid_spec($tzil);
 }
 
 {
@@ -141,6 +150,7 @@ use Test::DZil;
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
@@ -183,11 +193,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'desc',
-                            -always_recommend => 1,
-                            -phase => 'test',
-                            -type => 'requires',
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 1,
+                            phase => 'test',
+                            type => 'requires',
                             prereqs => { A => 0 },
                         },
                     },
@@ -196,6 +206,8 @@ use Test::DZil;
         })),
         'metadata correct when extracting feature name and phase from name',
     );
+
+    is_valid_spec($tzil);
 }
 
 {
@@ -206,6 +218,7 @@ use Test::DZil;
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
@@ -247,11 +260,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'desc',
-                            -always_recommend => 0,
-                            -phase => 'test',
-                            -type => 'requires',
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 0,
+                            phase => 'test',
+                            type => 'requires',
                             prereqs => { A => 0 },
                         },
                     },
@@ -260,6 +273,8 @@ use Test::DZil;
         })),
         'metadata correct when given explicit phase',
     );
+
+    is_valid_spec($tzil);
 }
 
 {
@@ -270,6 +285,7 @@ use Test::DZil;
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
@@ -311,11 +327,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'desc',
-                            -always_recommend => 0,
-                            -phase => 'test',
-                            -type => 'suggests',
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 0,
+                            phase => 'test',
+                            type => 'suggests',
                             prereqs => { A => 0 },
                         },
                     },
@@ -324,6 +340,8 @@ use Test::DZil;
         })),
         'metadata correct when given explicit phase and relationship',
     );
+
+    is_valid_spec($tzil);
 }
 
 {
@@ -334,6 +352,7 @@ use Test::DZil;
                 'source/dist.ini' => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
@@ -379,11 +398,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'desc',
-                            -always_recommend => 0,
-                            -phase => 'test',
-                            -type => 'requires',
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 0,
+                            phase => 'test',
+                            type => 'requires',
                             prereqs => { A => 0 },
                         },
                     },
@@ -394,11 +413,11 @@ use Test::DZil;
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
-                            -name => 'FeatureName',
-                            -description => 'desc',
-                            -always_recommend => 0,
-                            -phase => 'runtime',
-                            -type => 'requires',
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 0,
+                            phase => 'runtime',
+                            type => 'requires',
                             prereqs => { B => 0 },
                         },
                     },

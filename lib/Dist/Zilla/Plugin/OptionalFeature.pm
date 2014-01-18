@@ -117,10 +117,12 @@ around dump_config => sub
     my $config = $self->$orig;
 
     $config->{'' . __PACKAGE__} = {
-        (map { defined $self->$_ ? ( '-' . $_ => $self->$_ ) : () }
+        # FIXME: YAML::Tiny does not handle leading - properly yet
+        # (map { defined $self->$_ ? ( '-' . $_ => $self->$_ ) : () }
+        (map { defined $self->$_ ? ( $_ => $self->$_ ) : () }
             qw(name description always_recommend default)),
-        '-phase' => $self->_prereq_phase,
-        '-type' => $self->_prereq_type,
+        phase => $self->_prereq_phase,
+        type => $self->_prereq_type,
         prereqs => $self->_prereqs,
     };
 
