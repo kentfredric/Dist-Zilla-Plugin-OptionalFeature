@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.008
+version 0.009
 
 # SYNOPSIS
 
@@ -117,7 +117,7 @@ I am also usually active on irc, as 'ether' at `irc.perl.org`.
 
 # SEE ALSO
 
-- ["optional_features" in CPAN::Meta::Spec](https://metacpan.org/pod/CPAN::Meta::Spec#optional_features)
+- ["optional\_features" in CPAN::Meta::Spec](https://metacpan.org/pod/CPAN::Meta::Spec#optional_features)
 - ["features, feature (Module::Install::Metadata)" in Module::Install::API](https://metacpan.org/pod/Module::Install::API#features-feature-Module::Install::Metadata)
 
 # AUTHOR

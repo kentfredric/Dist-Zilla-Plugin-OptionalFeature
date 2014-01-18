@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.009     2014-01-18 20:41:13Z
           - include our full config data in target dist's metadata
 
 0.008     2013-11-30 17:26:03Z
