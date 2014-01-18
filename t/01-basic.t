@@ -61,7 +61,7 @@ use Test::DZil;
                     [ GatherDir => ],
                     [ MetaJSON  => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
-                    [ OptionalFeature => 'FeatureName-RuntimeRequires' => {
+                    [ OptionalFeature => 'FeatureName-BuildSuggests' => {
                             -description => 'desc',
                             -always_recommend => 1,
                             A => 0,
@@ -80,16 +80,16 @@ use Test::DZil;
         json(superhashof({
             dynamic_config => 0,
             optional_features => {
-                FeatureName => {
+                FeatureName => {    # strip phase/type as it is extracted
                     description => 'desc',
                     prereqs => {
-                        runtime => { requires => { A => 0 } },
+                        build => { suggests => { A => 0 } },
                     },
                 },
             },
             prereqs => {
                 test => { requires => { Tester => 0 } },
-                runtime => { recommends => { A => 0 } },
+                build => { recommends => { A => 0 } },
                 develop => { requires => { A => 0 } },
             },
         })),
