@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.010     2014-01-18 22:01:56Z
           - fix config section in generated metadata that was not
             spec-compliant
 
