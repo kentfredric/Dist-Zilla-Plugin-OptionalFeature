@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.011     2014-01-21 04:10:42Z
           - new -require_develop option (which has always defaulted to true)
 
 0.010     2014-01-18 22:01:56Z

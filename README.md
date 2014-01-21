@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.010
+version 0.011
 
 # SYNOPSIS
 
@@ -87,7 +87,14 @@ This is mostly a restating of the information above.
     If set with a true value, the prerequisites are added to the distribution's
     metadata as recommended prerequisites (e.g. [cpanminus](https://metacpan.org/pod/cpanminus) will install
     recommendations with `--with-recommends`, even when running
-    non-interactively). Defaults to 0, but I recommend you turn this on.
+    non-interactively). Defaults to false, but I recommend you turn this on.
+
+- `-require_develop`
+
+    If set with a true value, the prerequisites are added to the distribution's
+    metadata as develop requires prerequisites (e.g. [cpanminus](https://metacpan.org/pod/cpanminus) will install
+    recommendations with `--with-develop`, even when running
+    non-interactively).  Defaults to true.
 
 - `-default`
 
