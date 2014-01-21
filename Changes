@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - new -require_develop option (which has always defaulted to true)
 
 0.010     2014-01-18 22:01:56Z
           - fix config section in generated metadata that was not
