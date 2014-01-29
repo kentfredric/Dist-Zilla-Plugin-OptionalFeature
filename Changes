@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - report more installed versions, as an attempt to debug some odd
+            cpantesters failures
 
 0.011     2014-01-21 04:10:42Z
           - new -require_develop option (which has always defaulted to true)
