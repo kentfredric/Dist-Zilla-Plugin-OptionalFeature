@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.012     2014-01-29 04:09:38Z
           - report more installed versions, as an attempt to debug some odd
             cpantesters failures
 

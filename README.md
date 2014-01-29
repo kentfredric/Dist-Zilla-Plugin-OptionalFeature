@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 # VERSION
 
-version 0.011
+version 0.012
 
 # SYNOPSIS
 
