@@ -58,7 +58,7 @@ has _prereqs => (
     default => sub { {} },
 );
 
-sub mvp_aliases { return { -relationship => '-type' } }
+sub mvp_aliases { +{ -relationship => '-type' } }
 
 around BUILDARGS => sub
 {
@@ -122,7 +122,7 @@ around dump_config => sub
 
     my $config = $self->$orig;
 
-    $config->{'' . __PACKAGE__} = {
+    $config->{+__PACKAGE__} = {
         # FIXME: YAML::Tiny does not handle leading - properly yet
         # (map { defined $self->$_ ? ( '-' . $_ => $self->$_ ) : () }
         (map { defined $self->$_ ? ( $_ => $self->$_ ) : () }
