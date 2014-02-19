@@ -6,7 +6,7 @@ use Exporter 'import';
 our @EXPORT = ('is_valid_spec');
 
 use YAML::Tiny;
-use JSON::Any;
+use JSON::Any 1.31;
 use Test::CPAN::Meta::YAML::Version;
 use Test::CPAN::Meta::JSON::Version;
 use Test::More;

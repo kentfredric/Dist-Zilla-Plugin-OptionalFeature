@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - bump the prereq on JSON::Any, to ensure we know how to handle
+            JSON::XS 3.x
 
 0.012     2014-01-29 04:09:38Z
           - report more installed versions, as an attempt to debug some odd
