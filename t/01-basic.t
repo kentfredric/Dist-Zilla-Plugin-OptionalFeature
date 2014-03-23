@@ -7,6 +7,7 @@ use Test::Fatal;
 use Test::Deep;
 use Test::Deep::JSON;
 use Test::DZil;
+use Path::Tiny;
 
 use lib 't/lib';
 use SpecCompliant;

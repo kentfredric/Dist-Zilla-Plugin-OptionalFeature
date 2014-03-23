@@ -5,6 +5,7 @@ use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Fatal;
 use Test::DZil;
+use Path::Tiny;
 
 {
     like( exception {

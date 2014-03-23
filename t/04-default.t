@@ -6,6 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::Deep::JSON;
 use Test::DZil;
+use Path::Tiny;
 
 {
     my $tzil = Builder->from_config(
