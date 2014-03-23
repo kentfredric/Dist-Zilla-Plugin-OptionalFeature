@@ -3,7 +3,6 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
-use Test::Fatal;
 use Test::Deep;
 use Test::Deep::JSON;
 use Test::DZil;
