@@ -191,7 +191,7 @@ __END__
 
 In your F<dist.ini>:
 
-    [OptionalFeature / XS Support]
+    [OptionalFeature / XS_Support]
     -description = XS implementation (faster, requires a compiler)
     Foo::Bar::XS = 1.002
 
@@ -207,7 +207,7 @@ from the plugin name.
 
 You can specify requirements for different phases and relationships with:
 
-    [OptionalFeature / Feature name]
+    [OptionalFeature / Feature_name]
     -description = description
     -phase = test
     -relationship = requires
@@ -220,12 +220,12 @@ C<requires>.
 To specify feature requirements for multiple phases, provide them as separate
 plugin configurations (keeping the feature name and description constant):
 
-    [OptionalFeature / Feature name]
+    [OptionalFeature / Feature_name]
     -description = description
     -phase = runtime
     Foo::Bar = 0
 
-    [OptionalFeature / Feature name]
+    [OptionalFeature / Feature_name]
     -description = description
     -phase = test
     Foo::Baz = 0
@@ -243,7 +243,7 @@ The example below is equivalent to the synopsis example above, except for the
 name of the resulting plugin:
 
     [OptionalFeature]
-    -name = XS Support
+    -name = XS_Support
     -description = XS implementation (faster, requires a compiler)
     -phase = runtime
     -relationship = requires

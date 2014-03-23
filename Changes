@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix examples to use working code, that doesn't violate naming
+            constraints for features (RT#94130)
 
 0.013     2014-02-19 03:48:35Z
           - bump the prereq on JSON::Any, to ensure we know how to handle
