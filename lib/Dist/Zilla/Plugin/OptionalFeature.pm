@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::OptionalFeature;
-# ABSTRACT: Specify prerequisites for optional features in your dist
+# ABSTRACT: Specify prerequisites for optional features in your distribution
 # vim: set ts=8 sw=4 tw=78 et :
 
 use Moose;
