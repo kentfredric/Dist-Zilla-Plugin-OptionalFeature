@@ -249,6 +249,12 @@ name of the resulting plugin:
     -relationship = requires
     Foo::Bar::XS = 1.002
 
+B<NOTE>: It is advised that you only specify I<one> prerequisite for a given
+feature -- and if necessary, create a separate distribution to encapsulate the
+code needed to make that feature work (along with all of its dependencies).
+This allows external projects to declare a prerequisite not just on your
+distribution, but also a particular feature of that distribution.
+
 =for Pod::Coverage mvp_aliases metadata register_prereqs
 
 =head1 CONFIG OPTIONS
