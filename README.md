@@ -1,16 +1,16 @@
 # NAME
 
-Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional features in your dist
+Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional features in your distribution
 
 # VERSION
 
-version 0.013
+version 0.014
 
 # SYNOPSIS
 
 In your `dist.ini`:
 
-    [OptionalFeature / XS Support]
+    [OptionalFeature / XS_Support]
     -description = XS implementation (faster, requires a compiler)
     Foo::Bar::XS = 1.002
 
@@ -26,7 +26,7 @@ from the plugin name.
 
 You can specify requirements for different phases and relationships with:
 
-    [OptionalFeature / Feature name]
+    [OptionalFeature / Feature_name]
     -description = description
     -phase = test
     -relationship = requires
@@ -39,12 +39,12 @@ If not provided, `-phase` defaults to `runtime`, and `-relationship` to
 To specify feature requirements for multiple phases, provide them as separate
 plugin configurations (keeping the feature name and description constant):
 
-    [OptionalFeature / Feature name]
+    [OptionalFeature / Feature_name]
     -description = description
     -phase = runtime
     Foo::Bar = 0
 
-    [OptionalFeature / Feature name]
+    [OptionalFeature / Feature_name]
     -description = description
     -phase = test
     Foo::Baz = 0
@@ -62,11 +62,17 @@ The example below is equivalent to the synopsis example above, except for the
 name of the resulting plugin:
 
     [OptionalFeature]
-    -name = XS Support
+    -name = XS_Support
     -description = XS implementation (faster, requires a compiler)
     -phase = runtime
     -relationship = requires
     Foo::Bar::XS = 1.002
+
+**NOTE**: It is advised that you only specify _one_ prerequisite for a given
+feature -- and if necessary, create a separate distribution to encapsulate the
+code needed to make that feature work (along with all of its dependencies).
+This allows external projects to declare a prerequisite not just on your
+distribution, but also a particular feature of that distribution.
 
 # CONFIG OPTIONS
 
