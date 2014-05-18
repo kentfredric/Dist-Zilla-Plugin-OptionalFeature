@@ -6,7 +6,7 @@ use Exporter 'import';
 our @EXPORT = ('is_valid_spec');
 
 use YAML::Tiny;
-use JSON::Any 1.31;
+use JSON::MaybeXS;
 use Test::CPAN::Meta::YAML::Version;
 use Test::CPAN::Meta::JSON::Version;
 use Test::More;
@@ -34,7 +34,7 @@ sub is_valid_spec
 
         # note - decode_json wants octets, not characters
         my $json = path($tzil->tempdir, qw(build META.json))->slurp_raw;
-        my $meta_json_spec = Test::CPAN::Meta::JSON::Version->new(data => JSON::Any->new->decode($json));
+        my $meta_json_spec = Test::CPAN::Meta::JSON::Version->new(data => decode_json($json));
         ok(!$meta_json_spec->parse(), 'no spec errors in META.json')
             or do { diag($_) foreach $meta_json_spec->errors };
     };
