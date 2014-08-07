@@ -26,6 +26,7 @@ use Path::Tiny;
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -48,7 +49,10 @@ use Path::Tiny;
             },
         }),
         'metadata correct when -default is explicitly set to true',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -72,6 +76,7 @@ use Path::Tiny;
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -95,6 +100,9 @@ use Path::Tiny;
         }),
         'metadata correct when -default is explicitly set to false',
     );
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

@@ -71,7 +71,7 @@ use SpecCompliant;
             }),
         }),
         'metadata correct when minimal config provided',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
 }
@@ -137,7 +137,7 @@ use SpecCompliant;
             }),
         }),
         'metadata correct when extracting feature name, phase and relationship from name',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
 }
@@ -205,7 +205,7 @@ use SpecCompliant;
             }),
         }),
         'metadata correct when extracting feature name and phase from name',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
 }
@@ -272,7 +272,7 @@ use SpecCompliant;
             }),
         }),
         'metadata correct when given explicit phase',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
 }
@@ -339,7 +339,7 @@ use SpecCompliant;
             }),
         }),
         'metadata correct when given explicit phase and relationship',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
 }
@@ -369,6 +369,7 @@ use SpecCompliant;
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -425,7 +426,10 @@ use SpecCompliant;
             }),
         }),
         'metadata is merged from two plugins',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {

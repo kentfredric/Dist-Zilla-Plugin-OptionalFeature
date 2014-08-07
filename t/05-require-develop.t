@@ -32,6 +32,7 @@ use SpecCompliant;
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -70,9 +71,12 @@ use SpecCompliant;
             }),
         }),
         'metadata correct when extracting feature name, phase and relationship from name',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

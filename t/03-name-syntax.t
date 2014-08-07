@@ -29,6 +29,7 @@ use Config::MVP::Reader::INI 2.101461;  # for spaces in section names
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     like(
         exception { $tzil->build },
         qr/invalid syntax for optional feature name 'Feature Name'/,
@@ -60,6 +61,9 @@ use Config::MVP::Reader::INI 2.101461;  # for spaces in section names
         'metadata is invalid',
     )
     or diag 'got:', join("\n", '', @errors);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;
