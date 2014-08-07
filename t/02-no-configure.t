@@ -15,7 +15,6 @@ use Path::Tiny;
                 add_files => {
                     path(qw(source dist.ini)) => simple_ini(
                         [ GatherDir => ],
-                        [ MetaJSON  => ],
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 -phase => 'configure',

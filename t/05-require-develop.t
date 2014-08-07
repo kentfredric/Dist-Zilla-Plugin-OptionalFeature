@@ -4,7 +4,6 @@ use warnings FATAL => 'all';
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
-use Test::Deep::JSON;
 use Test::DZil;
 use Path::Tiny;
 
@@ -34,11 +33,10 @@ use SpecCompliant;
     );
 
     $tzil->build;
-    my $json = path($tzil->tempdir, qw(build META.json))->slurp_raw;
 
     cmp_deeply(
-        $json,
-        json(superhashof({
+        $tzil->distmeta,
+        superhashof({
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {    # strip phase/type as it is extracted
@@ -53,7 +51,7 @@ use SpecCompliant;
                 # no develop prereqs
             },
             x_Dist_Zilla => superhashof({
-                plugins => superbagof({
+                plugins => supersetof({
                     class   => 'Dist::Zilla::Plugin::OptionalFeature',
                     name    => 'FeatureName-BuildSuggests',
                     version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
@@ -70,7 +68,7 @@ use SpecCompliant;
                     },
                 }),
             }),
-        })),
+        }),
         'metadata correct when extracting feature name, phase and relationship from name',
     );
 
