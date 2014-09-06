@@ -11,6 +11,7 @@ with
 
 use MooseX::Types::Moose qw(HashRef Bool);
 use MooseX::Types::Common::String 'NonEmptySimpleStr';
+use Carp 'confess';
 use namespace::autoclean;
 
 has name => (
