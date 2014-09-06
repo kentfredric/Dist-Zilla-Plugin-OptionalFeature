@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.015     2014-09-06 07:46:34Z
           - now allowing unrecognized options, with a warning, rather than
             dying (allows proactively releasing distributions using
             not-yet-implemented options)
