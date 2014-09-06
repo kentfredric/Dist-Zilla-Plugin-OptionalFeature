@@ -79,7 +79,7 @@ around BUILDARGS => sub
     my ($type) = grep { defined } delete @{$args}{qw(-type -relationship)};
 
     my @other_options = grep { /^-/ } keys %$args;
-    confess "invalid option(s): @other_options" if @other_options;
+    warn "[OptionalFeature] warning: invalid option(s): @other_options" if @other_options;
 
     # handle magic plugin names
     if ((not $feature_name or not $phase or not $type)

@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now allowing unrecognized options, with a warning, rather than
+            dying (allows proactively releasing distributions using
+            not-yet-implemented options)
 
 0.014     2014-05-18 05:04:39Z
           - fix examples to use working code, that doesn't violate naming
