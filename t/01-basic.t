@@ -2,7 +2,7 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
-use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
+use Test::Warnings 0.009 ':no_end_test', ':all';
 use Test::Fatal;
 use Test::Deep;
 use Test::DZil;
@@ -456,4 +456,78 @@ use SpecCompliant;
     );
 }
 
+{
+    my $tzil;
+
+    cmp_deeply(
+        [ warnings {
+        $tzil = Builder->from_config(
+            { dist_root => 't/corpus/dist/DZT' },
+            {
+                add_files => {
+                    path(qw(source dist.ini)) => simple_ini(
+                        [ GatherDir => ],
+                        [ MetaConfig => ],
+                        [ MetaYAML => ],
+                        [ MetaJSON  => ],
+                        [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
+                        [ OptionalFeature => FeatureName => {
+                                -hello => 'oh hai',
+                                -description => 'desc',
+                                A => 0,
+                            }
+                        ],
+                    ),
+                },
+            },
+        ) } ],
+        [ re(qr/^\[OptionalFeature\] warning: unrecognized option\(s\): -hello/) ],
+        'unrecognized options are accepted, with a warning',
+    );
+
+    $tzil->chrome->logger->set_debug(1);
+    $tzil->build;
+
+    cmp_deeply(
+        $tzil->distmeta,
+        superhashof({
+            dynamic_config => 0,
+            optional_features => {
+                FeatureName => {
+                    description => 'desc',
+                    prereqs => {
+                        runtime => { requires => { A => 0 } },
+                    },
+                },
+            },
+            prereqs => {
+                test => { requires => { Tester => 0 } },
+                develop => { requires => { A => 0 } },
+            },
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            name => 'FeatureName',
+                            description => 'desc',
+                            always_recommend => 0,
+                            require_develop => 1,
+                            phase => 'runtime',
+                            type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
+        }),
+        'metadata is still correct even with an unrecognized option',
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    is_valid_spec($tzil);
+}
+
+had_no_warnings if $ENV{AUTHOR_TESTING};
 done_testing;
