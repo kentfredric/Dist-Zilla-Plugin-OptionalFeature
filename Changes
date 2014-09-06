@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.016     2014-09-06 22:39:49Z
           - now *properly* allowing unrecognized options (0.015)
 
 0.015     2014-09-06 07:46:34Z
