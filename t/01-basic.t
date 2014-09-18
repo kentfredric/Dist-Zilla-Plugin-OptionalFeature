@@ -368,6 +368,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
                             -description => 'desc',
@@ -442,6 +443,8 @@ use SpecCompliant;
         }),
         'metadata is merged from two plugins',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    is_valid_spec($tzil);
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;

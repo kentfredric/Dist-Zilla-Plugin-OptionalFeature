@@ -16,6 +16,8 @@ sub is_valid_spec
 {
     my $tzil = shift;
 
+    local $TODO = $::TODO;
+
     subtest is_valid_spec => sub
     {
         # note - YAML::Tiny wants characters, not octets

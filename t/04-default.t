@@ -7,6 +7,9 @@ use Test::Deep;
 use Test::DZil;
 use Path::Tiny;
 
+use lib 't/lib';
+use SpecCompliant;
+
 {
     my $tzil = Builder->from_config(
         { dist_root => 't/does_not_exist' },
@@ -15,6 +18,8 @@ use Path::Tiny;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -default => 1,
@@ -71,6 +76,11 @@ use Path::Tiny;
         'metadata correct when -default is explicitly set to true',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
+    TODO: {
+        local $TODO = 'x_ keys should be valid everywhere!';
+        is_valid_spec($tzil);
+    }
+
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 }
@@ -85,6 +95,8 @@ use Path::Tiny;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
+                    [ MetaYAML => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -default => 0,
@@ -140,6 +152,11 @@ use Path::Tiny;
         }),
         'metadata correct when -default is explicitly set to false',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    TODO: {
+        local $TODO = 'x_ keys should be valid everywhere!';
+        is_valid_spec($tzil);
+    }
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
