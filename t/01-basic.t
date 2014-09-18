@@ -20,7 +20,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
-                    [ MetaJSON  => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             # use default description, phase, type
@@ -85,7 +85,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
-                    [ MetaJSON  => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-BuildSuggests' => {
                             -description => 'desc',
@@ -151,7 +151,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
-                    [ MetaJSON  => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
                             -description => 'desc',
@@ -219,7 +219,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
-                    [ MetaJSON  => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -description => 'desc',
@@ -286,7 +286,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
-                    [ MetaJSON  => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -description => 'desc',
@@ -469,7 +469,7 @@ use SpecCompliant;
                         [ GatherDir => ],
                         [ MetaConfig => ],
                         [ MetaYAML => ],
-                        [ MetaJSON  => ],
+                        [ MetaJSON => ],
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 -hello => 'oh hai',

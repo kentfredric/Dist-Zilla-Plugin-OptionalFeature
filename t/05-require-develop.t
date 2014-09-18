@@ -19,7 +19,7 @@ use SpecCompliant;
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ MetaYAML => ],
-                    [ MetaJSON  => ],
+                    [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-BuildSuggests' => {
                             -description => 'desc',
