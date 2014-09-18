@@ -14,6 +14,7 @@ use Path::Tiny;
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -default => 1,
@@ -47,6 +48,25 @@ use Path::Tiny;
                 # no test recommendations
                 develop => { requires => { A => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            name => 'FeatureName',
+                            description => 'FeatureName',
+                            always_recommend => 0,
+                            require_develop => 1,
+                            default => 1,
+                            phase => 'runtime',
+                            type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         }),
         'metadata correct when -default is explicitly set to true',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
@@ -64,6 +84,7 @@ use Path::Tiny;
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
+                    [ MetaConfig => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -default => 0,
@@ -97,6 +118,25 @@ use Path::Tiny;
                 # no test recommendations
                 develop => { requires => { A => 0 } },
             },
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof({
+                    class   => 'Dist::Zilla::Plugin::OptionalFeature',
+                    name    => 'FeatureName',
+                    version => Dist::Zilla::Plugin::OptionalFeature->VERSION,
+                    config => {
+                        'Dist::Zilla::Plugin::OptionalFeature' => {
+                            name => 'FeatureName',
+                            description => 'FeatureName',
+                            always_recommend => 0,
+                            require_develop => 1,
+                            default => 0,
+                            phase => 'runtime',
+                            type => 'requires',
+                            prereqs => { A => 0 },
+                        },
+                    },
+                }),
+            }),
         }),
         'metadata correct when -default is explicitly set to false',
     );
