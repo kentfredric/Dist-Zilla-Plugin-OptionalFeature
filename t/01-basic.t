@@ -224,7 +224,7 @@ use SpecCompliant;
                     [ OptionalFeature => FeatureName => {
                             -description => 'desc',
                             -phase => 'test',
-                            # use default relationship
+                            -type => 'recommends',
                             A => 0,
                         }
                     ],
@@ -243,7 +243,7 @@ use SpecCompliant;
                 FeatureName => {
                     description => 'desc',
                     prereqs => {
-                        test => { requires => { A => 0 } },
+                        test => { recommends => { A => 0 } },
                     },
                 },
             },
@@ -264,7 +264,7 @@ use SpecCompliant;
                             always_recommend => 0,
                             require_develop => 1,
                             phase => 'test',
-                            type => 'requires',
+                            type => 'recommends',
                             prereqs => { A => 0 },
                         },
                     },
