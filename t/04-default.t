@@ -139,7 +139,7 @@ use Path::Tiny;
             }),
         }),
         'metadata correct when -default is explicitly set to false',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;

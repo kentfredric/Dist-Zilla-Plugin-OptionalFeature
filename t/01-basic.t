@@ -74,6 +74,9 @@ use SpecCompliant;
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -140,6 +143,9 @@ use SpecCompliant;
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -208,6 +214,9 @@ use SpecCompliant;
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -275,6 +284,9 @@ use SpecCompliant;
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -342,6 +354,9 @@ use SpecCompliant;
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -527,6 +542,9 @@ use SpecCompliant;
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     is_valid_spec($tzil);
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 had_no_warnings if $ENV{AUTHOR_TESTING};
