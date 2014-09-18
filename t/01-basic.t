@@ -24,6 +24,7 @@ use SpecCompliant;
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             # use default description, phase, type
+                            -prompt => 0,
                             A => 0,
                         }
                     ],
@@ -62,6 +63,7 @@ use SpecCompliant;
                             description => 'FeatureName',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'runtime',
                             type => 'requires',
                             prereqs => { A => 0 },
@@ -131,6 +133,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 1,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'build',
                             type => 'suggests',
                             prereqs => { A => 0 },
@@ -162,6 +165,7 @@ use SpecCompliant;
                     [ OptionalFeature => 'FeatureName-Test' => {
                             -description => 'desc',
                             -always_recommend => 1,
+                            -prompt => 0,
                             A => 0,
                         }
                     ],
@@ -202,6 +206,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 1,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'test',
                             type => 'requires',
                             prereqs => { A => 0 },
@@ -272,6 +277,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'test',
                             type => 'recommends',
                             prereqs => { A => 0 },
@@ -342,6 +348,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'test',
                             type => 'suggests',
                             prereqs => { A => 0 },
@@ -372,11 +379,13 @@ use SpecCompliant;
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
                             -description => 'desc',
+                            -prompt => 0,
                             A => 0,
                         }
                     ],
                     [ OptionalFeature => 'FeatureName-Runtime' => {
                             -description => 'desc',
+                            -prompt => 0,
                             B => 0,
                         }
                     ],
@@ -417,6 +426,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'test',
                             type => 'requires',
                             prereqs => { A => 0 },
@@ -433,6 +443,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'runtime',
                             type => 'requires',
                             prereqs => { B => 0 },
@@ -492,6 +503,7 @@ use SpecCompliant;
                         [ OptionalFeature => FeatureName => {
                                 -hello => 'oh hai',
                                 -description => 'desc',
+                                -prompt => 0,
                                 A => 0,
                             }
                         ],
@@ -533,6 +545,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             phase => 'runtime',
                             type => 'requires',
                             prereqs => { A => 0 },

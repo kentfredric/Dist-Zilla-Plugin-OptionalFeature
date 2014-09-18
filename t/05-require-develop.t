@@ -62,6 +62,7 @@ use SpecCompliant;
                             description => 'desc',
                             always_recommend => 0,
                             require_develop => 0,
+                            prompt => 0,
                             phase => 'build',
                             type => 'suggests',
                             prereqs => { A => 0 },

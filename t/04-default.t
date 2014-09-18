@@ -23,6 +23,7 @@ use SpecCompliant;
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -default => 1,
+                            -prompt => 0,
                             # use default description, phase, type
                             A => 0,
                         }
@@ -64,6 +65,7 @@ use SpecCompliant;
                             description => 'FeatureName',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             default => 1,
                             phase => 'runtime',
                             type => 'requires',
@@ -100,6 +102,7 @@ use SpecCompliant;
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
                             -default => 0,
+                            -prompt => 0,
                             # use default description, phase, type
                             A => 0,
                         }
@@ -141,6 +144,7 @@ use SpecCompliant;
                             description => 'FeatureName',
                             always_recommend => 0,
                             require_develop => 1,
+                            prompt => 0,
                             default => 0,
                             phase => 'runtime',
                             type => 'requires',

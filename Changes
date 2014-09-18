@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - new -prompt feature (enabled by default for 'required' feature
+            prereqs), which interactively prompts the user about the feature
 
 0.016     2014-09-06 22:39:49Z
           - now *properly* allowing unrecognized options (0.015)

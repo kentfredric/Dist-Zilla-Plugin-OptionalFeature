@@ -12,6 +12,7 @@ with
 use MooseX::Types::Moose qw(HashRef Bool);
 use MooseX::Types::Common::String 'NonEmptySimpleStr';
 use Carp 'confess';
+use Module::Runtime 'use_module';
 use namespace::autoclean;
 
 has name => (
@@ -32,6 +33,12 @@ has always_recommend => (
 has require_develop => (
     is => 'ro', isa => Bool,
     default => 1,
+);
+
+has prompt => (
+    is => 'ro', isa => Bool,
+    lazy => 1,
+    default => sub { shift->_prereq_type eq 'requires' ? 1 : 0 },
 );
 
 has default => (
@@ -56,6 +63,8 @@ has _prereqs => (
     is => 'ro', isa => HashRef[NonEmptySimpleStr],
     lazy => 1,
     default => sub { {} },
+    traits => ['Hash'],
+    handles => { _prereq_modules => 'keys', _prereq_version => 'get' },
 );
 
 sub mvp_aliases { +{ -relationship => '-type' } }
@@ -73,8 +82,8 @@ around BUILDARGS => sub
     # pull these out so they don't become part of our prereq list
     my ($zilla, $plugin_name) = delete @{$args}{qw(zilla plugin_name)};
 
-    my ($feature_name, $description, $always_recommend, $require_develop, $default, $phase) =
-        delete @{$args}{qw(-name -description -always_recommend -require_develop -default -phase)};
+    my ($feature_name, $description, $always_recommend, $require_develop, $prompt, $default, $phase) =
+        delete @{$args}{qw(-name -description -always_recommend -require_develop -prompt -default -phase)};
     my ($type) = grep { defined } delete @{$args}{qw(-type -relationship)};
 
     my @other_options = grep { /^-/ } keys %$args;
@@ -109,12 +118,45 @@ around BUILDARGS => sub
         defined $description ? ( description => $description ) : (),
         defined $always_recommend ? ( always_recommend => $always_recommend ) : (),
         defined $require_develop ? ( require_develop => $require_develop ) : (),
+        defined $prompt ? ( prompt => $prompt ) : (),
         defined $default ? ( default => $default ) : (),
         defined $phase ? ( _prereq_phase => $phase ) : (),
         defined $type ? ( _prereq_type => $type ) : (),
         _prereqs => $args,
     };
 };
+
+sub BUILD
+{
+    my $self = shift;
+
+    if ($self->prompt)
+    {
+        my $phase = $self->_prereq_phase;
+        my $mm_key = $phase eq 'runtime' ? 'PREREQ_PM'
+            : $phase eq 'test' ? 'TEST_REQUIRES'
+            : $phase eq 'build' ? 'BUILD_REQUIRES'
+            : $self->log_fatal("illegal phase $phase");
+        $self->log_fatal('prompts are only used for the \'requires\' type')
+            if $self->_prereq_type ne 'requires';
+
+        my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs', '0.007')->new(
+            zilla => $self->zilla,
+            plugin_name => 'via OptionalFeature (' . ($self->plugin_name || $self->name) . ')',
+            delimiter => '|',
+            raw => [
+                "if (prompt('install " . $self->name . ' (' . $self->description . ')? '
+                    . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
+                    . ') =~ /^y/i) {',
+                (map {
+                    qq!|  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
+                } sort $self->_prereq_modules),
+                '}',
+            ],
+        );
+        push @{ $self->zilla->plugins }, $plugin;
+    }
+}
 
 around dump_config => sub
 {
@@ -123,7 +165,7 @@ around dump_config => sub
 
     $config->{+__PACKAGE__} = {
         (map { $_ => $self->$_ }
-            qw(name description always_recommend require_develop)),
+            qw(name description always_recommend require_develop prompt)),
         # FIXME: YAML::Tiny does not handle leading - properly yet
         # (map { defined $self->$_ ? ( '-' . $_ => $self->$_ ) : () }
         (map { defined $self->$_ ? ( $_ => $self->$_ ) : () } qw(default)),
@@ -193,6 +235,7 @@ In your F<dist.ini>:
 
     [OptionalFeature / XS_Support]
     -description = XS implementation (faster, requires a compiler)
+    -prompt = 1
     Foo::Bar::XS = 1.002
 
 =head1 DESCRIPTION
@@ -255,9 +298,23 @@ code needed to make that feature work (along with all of its dependencies).
 This allows external projects to declare a prerequisite not just on your
 distribution, but also a particular feature of that distribution.
 
-=for Pod::Coverage mvp_aliases metadata register_prereqs
+=for Pod::Coverage mvp_aliases BUILD metadata register_prereqs
 
-=head1 CONFIG OPTIONS
+=head1 PROMPTING
+
+At the moment it doesn't appear that any CPAN clients properly support
+C<optional_feature> metadata and interactively prompt the user with the
+information therein.  Therefore, prompting is added directly to F<Makefile.PL>
+when the C<-relationship> is C<requires>. (It doesn't make much sense to
+prompt for C<recommends> or C<suggests> features, so prompting is omitted
+here.)  You can also enable or disable this explicitly with the C<-prompt> option.
+The prompt feature can only be used with F<Makefile.PL>. If a F<Build.PL> is
+detected in the build and C<=prompt> is set, the build will fail.
+
+As with any other interactive features, the installing user can bypass the
+prompts with C<PERL_MM_USE_DEFAULT=1>.
+
+=head1 CONFIGURATION OPTIONS
 
 This is mostly a restating of the information above.
 
@@ -287,11 +344,15 @@ metadata as develop requires prerequisites (e.g. L<cpanminus> will install
 recommendations with C<--with-develop>, even when running
 non-interactively).  Defaults to true.
 
+=item * C<-prompt>
+
+If set with a true value, F<Makefile.PL> is modified to include interactive
+prompts.
+
 =item * C<-default>
 
-If set with a true value, compliant CPAN clients will behave as if the user
-opted to install the feature's prerequisites when running non-interactively
-(when there is no opportunity to prompt the user).
+If set with a true value, non-interactive installs will automatically
+fold the feature's prerequisites into the regular prerequisites.
 
 =for stopwords miyagawa
 
