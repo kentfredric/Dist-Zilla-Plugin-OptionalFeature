@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.017     2014-09-19 06:16:11Z
           - new -prompt feature (enabled by default for 'required' feature
             prereqs), which interactively prompts the user about the feature
 

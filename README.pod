@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::OptionalFeature - Specify prerequisites for optional featur
 
 =head1 VERSION
 
-version 0.016
+version 0.017
 
 =head1 SYNOPSIS
 
@@ -16,6 +16,7 @@ In your F<dist.ini>:
 
     [OptionalFeature / XS_Support]
     -description = XS implementation (faster, requires a compiler)
+    -prompt = 1
     Foo::Bar::XS = 1.002
 
 =head1 DESCRIPTION
@@ -78,9 +79,23 @@ code needed to make that feature work (along with all of its dependencies).
 This allows external projects to declare a prerequisite not just on your
 distribution, but also a particular feature of that distribution.
 
-=for Pod::Coverage mvp_aliases metadata register_prereqs
+=for Pod::Coverage mvp_aliases BUILD metadata register_prereqs
 
-=head1 CONFIG OPTIONS
+=head1 PROMPTING
+
+At the moment it doesn't appear that any CPAN clients properly support
+C<optional_feature> metadata and interactively prompt the user with the
+information therein.  Therefore, prompting is added directly to F<Makefile.PL>
+when the C<-relationship> is C<requires>. (It doesn't make much sense to
+prompt for C<recommends> or C<suggests> features, so prompting is omitted
+here.)  You can also enable or disable this explicitly with the C<-prompt> option.
+The prompt feature can only be used with F<Makefile.PL>. If a F<Build.PL> is
+detected in the build and C<=prompt> is set, the build will fail.
+
+As with any other interactive features, the installing user can bypass the
+prompts with C<PERL_MM_USE_DEFAULT=1>.
+
+=head1 CONFIGURATION OPTIONS
 
 This is mostly a restating of the information above.
 
@@ -110,11 +125,15 @@ metadata as develop requires prerequisites (e.g. L<cpanminus> will install
 recommendations with C<--with-develop>, even when running
 non-interactively).  Defaults to true.
 
+=item * C<-prompt>
+
+If set with a true value, F<Makefile.PL> is modified to include interactive
+prompts.
+
 =item * C<-default>
 
-If set with a true value, compliant CPAN clients will behave as if the user
-opted to install the feature's prerequisites when running non-interactively
-(when there is no opportunity to prompt the user).
+If set with a true value, non-interactive installs will automatically
+fold the feature's prerequisites into the regular prerequisites.
 
 =for stopwords miyagawa
 
