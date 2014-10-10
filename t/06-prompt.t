@@ -241,9 +241,6 @@ use SpecCompliant;
                     path(qw(source dist.ini)) => simple_ini(
                         [ GatherDir => ],
                         [ MetaConfig => ],
-                        [ MetaYAML => ],
-                        [ MetaJSON => ],
-                        [ MakeMaker => ],
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 -phase => 'runtime',
