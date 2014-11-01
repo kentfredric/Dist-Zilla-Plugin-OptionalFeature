@@ -314,7 +314,8 @@ The prompt feature can only be used with F<Makefile.PL>. If a F<Build.PL> is
 detected in the build and C<=prompt> is set, the build will fail.
 
 As with any other interactive features, the installing user can bypass the
-prompts with C<PERL_MM_USE_DEFAULT=1>.
+prompts with C<PERL_MM_USE_DEFAULT=1>.  You may want to set this when running
+C<dzil build>.
 
 =head1 CONFIGURATION OPTIONS
 
