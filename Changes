@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - temporarily disable a test that relies on CPAN::Meta::Merge
+            behaviour that does not yet exist
 
 0.017     2014-09-19 06:16:11Z
           - new -prompt feature (enabled by default for 'required' feature

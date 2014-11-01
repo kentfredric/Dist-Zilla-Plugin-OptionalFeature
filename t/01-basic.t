@@ -366,7 +366,11 @@ use SpecCompliant;
         if not Test::Builder->new->is_passing;
 }
 
+TODO:
 {
+    todo_skip 'CPAN::Meta::Merge cannot yet merge two related optional_features sections', 2
+        if Dist::Zilla->VERSION >= 5.022;
+
     my $tzil = Builder->from_config(
         { dist_root => 't/corpus/dist/DZT' },
         {

@@ -273,6 +273,8 @@ plugin configurations (keeping the feature name and description constant):
     -phase = test
     Foo::Baz = 0
 
+B<NOTE>: this doesn't seem to work properly with L<CPAN::Meta::Merge> (used in L<Dist::Zilla> since version 5.022).
+
 It is possible that future versions of this plugin may allow a more compact
 way of providing sophisticated prerequisite specifications.
 
