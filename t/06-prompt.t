@@ -29,7 +29,7 @@ use SpecCompliant;
                     [ MakeMaker => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -phase => 'runtime',
                             -relationship => 'requires',
                             -prompt => 1,
@@ -55,7 +55,7 @@ use SpecCompliant;
             optional_features => {
                 FeatureName => {
                     x_default => 1,
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         runtime => { requires => {
                             'Foo' => '1.0',
@@ -82,7 +82,7 @@ use SpecCompliant;
                         config => {
                             'Dist::Zilla::Plugin::OptionalFeature' => {
                                 name => 'FeatureName',
-                                description => 'desc',
+                                description => 'feature description',
                                 always_recommend => 0,
                                 require_develop => 1,
                                 prompt => 1,
@@ -116,7 +116,7 @@ use SpecCompliant;
 
     like(
         $content,
-        qr!\Qif (prompt('install FeatureName (desc)? [Y/n]', 'Y') =~ /^y/i) {\E
+        qr!\Qif (prompt('install FeatureName (feature description)? [Y/n]', 'Y') =~ /^y/i) {\E
 \s*\$\QWriteMakefileArgs{PREREQ_PM}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 \}!,
@@ -137,7 +137,7 @@ use SpecCompliant;
                     [ MakeMaker => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -phase => 'test',
                             -relationship => 'requires',
                             -prompt => 1,
@@ -163,7 +163,7 @@ use SpecCompliant;
             optional_features => {
                 FeatureName => {
                     x_default => 0,
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         test => { requires => {
                             'Foo' => '1.0',
@@ -190,7 +190,7 @@ use SpecCompliant;
                         config => {
                             'Dist::Zilla::Plugin::OptionalFeature' => {
                                 name => 'FeatureName',
-                                description => 'desc',
+                                description => 'feature description',
                                 always_recommend => 0,
                                 require_develop => 1,
                                 prompt => 1,
@@ -224,7 +224,7 @@ use SpecCompliant;
 
     like(
         $content,
-        qr!\Qif (prompt('install FeatureName (desc)? [y/N]', 'N') =~ /^y/i) {\E
+        qr!\Qif (prompt('install FeatureName (feature description)? [y/N]', 'N') =~ /^y/i) {\E
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 !,
@@ -243,6 +243,7 @@ use SpecCompliant;
                         [ MetaConfig => ],
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
+                                -description => 'feature description',
                                 -phase => 'runtime',
                                 -relationship => 'recommends',
                                 -prompt => 1,

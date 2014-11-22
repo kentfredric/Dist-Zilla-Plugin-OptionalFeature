@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - make the -description option mandatory, for more readable prompt
+            strings
 
 0.018     2014-11-01 03:21:38Z
           - temporarily disable a test that relies on CPAN::Meta::Merge

@@ -22,9 +22,10 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
+                            -description => 'feature description',
                             -default => 1,
                             -prompt => 0,
-                            # use default description, phase, type
+                            # use default phase, type
                             A => 0,
                         }
                     ],
@@ -43,7 +44,7 @@ use SpecCompliant;
             optional_features => {
                 FeatureName => {
                     x_default => 1,
-                    description => 'FeatureName',
+                    description => 'feature description',
                     prereqs => {
                         runtime => { requires => { A => 0 } },
                     },
@@ -62,7 +63,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'FeatureName',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,
@@ -101,9 +102,10 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
+                            -description => 'feature description',
                             -default => 0,
                             -prompt => 0,
-                            # use default description, phase, type
+                            # use default phase, type
                             A => 0,
                         }
                     ],
@@ -122,7 +124,7 @@ use SpecCompliant;
             optional_features => {
                 FeatureName => {
                     x_default => 0,
-                    description => 'FeatureName',
+                    description => 'feature description',
                     prereqs => {
                         runtime => { requires => { A => 0 } },
                     },
@@ -141,7 +143,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'FeatureName',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,

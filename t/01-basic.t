@@ -23,7 +23,8 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            # use default description, phase, type
+                            # use default phase, type
+                            -description => 'feature description',
                             -prompt => 0,
                             A => 0,
                         }
@@ -41,7 +42,7 @@ use SpecCompliant;
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'FeatureName',
+                    description => 'feature description',
                     prereqs => {
                         runtime => { requires => { A => 0 } },
                     },
@@ -60,7 +61,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'FeatureName',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,
@@ -93,7 +94,7 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-BuildSuggests' => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -always_recommend => 1,
                             A => 0,
                         }
@@ -111,7 +112,7 @@ use SpecCompliant;
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {    # strip phase/type as it is extracted
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         build => { suggests => { A => 0 } },
                     },
@@ -130,7 +131,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 1,
                             require_develop => 1,
                             prompt => 0,
@@ -163,7 +164,7 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -always_recommend => 1,
                             -prompt => 0,
                             A => 0,
@@ -182,7 +183,7 @@ use SpecCompliant;
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         test => { requires => { A => 0 } }
                     },
@@ -203,7 +204,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 1,
                             require_develop => 1,
                             prompt => 0,
@@ -236,7 +237,7 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -phase => 'test',
                             -type => 'recommends',
                             A => 0,
@@ -255,7 +256,7 @@ use SpecCompliant;
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         test => { recommends => { A => 0 } },
                     },
@@ -274,7 +275,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,
@@ -307,7 +308,7 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -phase => 'test',
                             -relationship => 'suggests',
                             A => 0,
@@ -326,7 +327,7 @@ use SpecCompliant;
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         test => { suggests => { A => 0 } },
                     },
@@ -345,7 +346,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,
@@ -382,13 +383,13 @@ TODO:
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => 'FeatureName-Test' => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -prompt => 0,
                             A => 0,
                         }
                     ],
                     [ OptionalFeature => 'FeatureName-Runtime' => {
-                            -description => 'desc',
+                            -description => 'feature description',
                             -prompt => 0,
                             B => 0,
                         }
@@ -407,7 +408,7 @@ TODO:
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         test => { requires => { A => 0 } },
                         runtime => { requires => { B => 0 } },
@@ -427,7 +428,7 @@ TODO:
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,
@@ -444,7 +445,7 @@ TODO:
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,
@@ -476,7 +477,7 @@ TODO:
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 _prereq_phase => 'test',
-                                -description => 'desc',
+                                -description => 'feature description',
                                 A => 0,
                             }
                         ],
@@ -506,7 +507,7 @@ TODO:
                         [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                         [ OptionalFeature => FeatureName => {
                                 -hello => 'oh hai',
-                                -description => 'desc',
+                                -description => 'feature description',
                                 -prompt => 0,
                                 A => 0,
                             }
@@ -528,7 +529,7 @@ TODO:
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'desc',
+                    description => 'feature description',
                     prereqs => {
                         runtime => { requires => { A => 0 } },
                     },
@@ -546,7 +547,7 @@ TODO:
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'desc',
+                            description => 'feature description',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,

@@ -21,8 +21,7 @@ has name => (
 );
 has description => (
     is => 'ro', isa => NonEmptySimpleStr,
-    lazy => 1,
-    default => sub { shift->name }
+    required => 1,
 );
 
 has always_recommend => (

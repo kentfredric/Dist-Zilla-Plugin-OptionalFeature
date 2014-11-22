@@ -19,7 +19,8 @@ use Config::MVP::Reader::INI 2.101461;  # for spaces in section names
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ OptionalFeature => 'Feature Name' => {
-                            # use default description, phase, type
+                            -description => 'feature description',
+                            # use default phase, type
                             A => 0,
                         }
                     ],
@@ -41,7 +42,7 @@ use Config::MVP::Reader::INI 2.101461;  # for spaces in section names
     my $spec = Test::CPAN::Meta::JSON::Version->new(data => {
         optional_features => {
             'Feature Name' => {
-                description => 'Feature Name',
+                description => 'feature description',
                 prereqs => {
                     runtime => { requires => { A => 0 } },
                 },
