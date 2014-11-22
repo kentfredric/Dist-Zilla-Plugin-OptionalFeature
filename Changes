@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.019     2014-11-22 07:35:51Z
           - make the -description option mandatory, for more readable prompt
             strings
           - prompt with just the description, as the feature name is usually
