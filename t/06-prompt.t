@@ -116,7 +116,7 @@ use SpecCompliant;
 
     like(
         $content,
-        qr!\Qif (prompt('install FeatureName (feature description)? [Y/n]', 'Y') =~ /^y/i) {\E
+        qr!\Qif (prompt('install feature description? [Y/n]', 'Y') =~ /^y/i) {\E
 \s*\$\QWriteMakefileArgs{PREREQ_PM}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 \}!,
@@ -224,7 +224,7 @@ use SpecCompliant;
 
     like(
         $content,
-        qr!\Qif (prompt('install FeatureName (feature description)? [y/N]', 'N') =~ /^y/i) {\E
+        qr!\Qif (prompt('install feature description? [y/N]', 'N') =~ /^y/i) {\E
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 !,

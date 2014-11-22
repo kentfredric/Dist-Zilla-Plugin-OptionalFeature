@@ -144,7 +144,7 @@ sub BUILD
             plugin_name => 'via OptionalFeature (' . ($self->plugin_name || $self->name) . ')',
             delimiter => '|',
             raw => [
-                "if (prompt('install " . $self->name . ' (' . $self->description . ')? '
+                "if (prompt('install " . $self->description . '? '
                     . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
                     . ') =~ /^y/i) {',
                 (map {
