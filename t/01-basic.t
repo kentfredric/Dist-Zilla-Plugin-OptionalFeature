@@ -1,6 +1,7 @@
 use strict;
 use warnings FATAL => 'all';
 
+use utf8;
 use Test::More;
 use Test::Warnings 0.009 ':no_end_test', ':all';
 use Test::Fatal;
@@ -10,6 +11,10 @@ use Path::Tiny;
 
 use lib 't/lib';
 use SpecCompliant;
+
+binmode(Test::More->builder->$_, ':encoding(UTF-8)') foreach qw(output failure_output todo_output);
+binmode STDOUT, ':encoding(UTF-8)';
+binmode STDERR, ':encoding(UTF-8)';
 
 {
     my $tzil = Builder->from_config(
@@ -308,7 +313,7 @@ use SpecCompliant;
                     [ MetaJSON => ],
                     [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
                     [ OptionalFeature => FeatureName => {
-                            -description => 'feature description',
+                            -description => 'feature description with "çƦăż\'ɏ" characters',
                             -phase => 'test',
                             -relationship => 'suggests',
                             A => 0,
@@ -327,7 +332,7 @@ use SpecCompliant;
             dynamic_config => 0,
             optional_features => {
                 FeatureName => {
-                    description => 'feature description',
+                    description => 'feature description with "çƦăż\'ɏ" characters',
                     prereqs => {
                         test => { suggests => { A => 0 } },
                     },
@@ -346,7 +351,7 @@ use SpecCompliant;
                     config => {
                         'Dist::Zilla::Plugin::OptionalFeature' => {
                             name => 'FeatureName',
-                            description => 'feature description',
+                            description => 'feature description with "çƦăż\'ɏ" characters',
                             always_recommend => 0,
                             require_develop => 1,
                             prompt => 0,

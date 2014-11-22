@@ -5,6 +5,8 @@ Revision history for {{$dist->name}}
             strings
           - prompt with just the description, as the feature name is usually
             very confusing for the user
+          - handle funky characters in the feature description and other
+            fields
 
 0.018     2014-11-01 03:21:38Z
           - temporarily disable a test that relies on CPAN::Meta::Merge

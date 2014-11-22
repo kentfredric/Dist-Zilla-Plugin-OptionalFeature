@@ -139,12 +139,14 @@ sub BUILD
         $self->log_fatal('prompts are only used for the \'requires\' type')
             if $self->_prereq_type ne 'requires';
 
+        (my $description = $self->description) =~ s/'/\\'/g;
+
         my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs', '0.007')->new(
             zilla => $self->zilla,
             plugin_name => 'via OptionalFeature (' . ($self->plugin_name || $self->name) . ')',
             delimiter => '|',
             raw => [
-                "if (prompt('install " . $self->description . '? '
+                "if (prompt('install $description? "
                     . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
                     . ') =~ /^y/i) {',
                 (map {
