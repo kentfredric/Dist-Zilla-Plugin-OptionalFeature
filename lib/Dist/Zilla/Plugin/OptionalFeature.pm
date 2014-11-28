@@ -6,6 +6,7 @@ package Dist::Zilla::Plugin::OptionalFeature;
 
 use Moose;
 with
+    'Dist::Zilla::Role::BeforeBuild',
     'Dist::Zilla::Role::MetaProvider',
     'Dist::Zilla::Role::PrereqSource';
 
@@ -125,12 +126,12 @@ around BUILDARGS => sub
     };
 };
 
-sub BUILD
-{
-    my $self = shift;
+has _dynamicprereqs => (
+    is => 'ro', isa => 'Dist::Zilla::Plugin::DynamicPrereqs',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
 
-    if ($self->prompt)
-    {
         my $phase = $self->_prereq_phase;
         my $mm_key = $phase eq 'runtime' ? 'PREREQ_PM'
             : $phase eq 'test' ? 'TEST_REQUIRES'
@@ -157,7 +158,32 @@ sub BUILD
                 '}',
             ],
         );
-        push @{ $self->zilla->plugins }, $plugin;
+
+    },
+);
+
+# package-scoped singleton to track the OptionalFeature instance that manages all the dynamic prereqs
+my $master_plugin;
+sub __clear_master_plugin { undef $master_plugin } # for testing
+
+sub before_build
+{
+    my $self = shift;
+
+    if ($self->prompt and not $master_plugin)
+    {
+        # because [DynamicPrereqs] inserts Makefile.PL content in reverse
+        # order to when it was called, we make just one [OptionalFeature]
+        # plugin will create and add all DynamicPrereqs plugins, so the order
+        # of the prompts is in the same order as the dist.ini declarations and
+        # the corresponding metadata.
+
+        $master_plugin = $self;
+
+        push @{ $self->zilla->plugins },
+            reverse map {
+                $_->prompt ? $_->_dynamicprereqs : ()
+            } grep { $_->isa(__PACKAGE__) } @{ $self->zilla->plugins };
     }
 }
 
@@ -303,7 +329,7 @@ code needed to make that feature work (along with all of its dependencies).
 This allows external projects to declare a prerequisite not just on your
 distribution, but also a particular feature of that distribution.
 
-=for Pod::Coverage mvp_aliases BUILD metadata register_prereqs
+=for Pod::Coverage mvp_aliases BUILD before_build metadata register_prereqs
 
 =head1 PROMPTING
 

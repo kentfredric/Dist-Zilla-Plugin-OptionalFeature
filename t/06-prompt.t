@@ -136,6 +136,8 @@ binmode STDERR, ':encoding(UTF-8)';
         if not Test::Builder->new->is_passing;
 }
 
+Dist::Zilla::Plugin::OptionalFeature::__clear_master_plugin();
+
 {
     my $tzil = Builder->from_config(
         { dist_root => 't/does_not_exist' },
@@ -250,32 +252,42 @@ binmode STDERR, ':encoding(UTF-8)';
         if not Test::Builder->new->is_passing;
 }
 
+Dist::Zilla::Plugin::OptionalFeature::__clear_master_plugin();
+
 {
-    like( exception {
-        Builder->from_config(
-            { dist_root => 't/does_not_exist' },
-            {
-                add_files => {
-                    path(qw(source dist.ini)) => simple_ini(
-                        [ GatherDir => ],
-                        [ MetaConfig => ],
-                        [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
-                        [ OptionalFeature => FeatureName => {
-                                -description => 'feature description',
-                                -phase => 'runtime',
-                                -relationship => 'recommends',
-                                -prompt => 1,
-                                'Foo' => '1.0', 'Bar' => '2.0',
-                            },
-                        ],
-                    ),
-                },
+    my $tzil = Builder->from_config(
+        { dist_root => 't/does_not_exist' },
+        {
+            add_files => {
+                path(qw(source dist.ini)) => simple_ini(
+                    [ GatherDir => ],
+                    [ MetaConfig => ],
+                    [ Prereqs => TestRequires => { Tester => 0 } ],   # so we have prereqs to test for
+                    [ OptionalFeature => FeatureName => {
+                            -description => 'feature description',
+                            -phase => 'runtime',
+                            -relationship => 'recommends',
+                            -prompt => 1,
+                            'Foo' => '1.0', 'Bar' => '2.0',
+                        },
+                    ],
+                ),
             },
-        ) },
+        },
+    );
+
+    $tzil->chrome->logger->set_debug(1);
+    like(
+        exception { $tzil->build },
         qr/prompts are only used for the 'requires' type/,
         'prompting cannot be combined with the recommends or suggests prereq type',
     );
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
+
+Dist::Zilla::Plugin::OptionalFeature::__clear_master_plugin();
 
 {
     my $tzil = Builder->from_config(
