@@ -350,10 +350,14 @@ non-interactively).  Defaults to true.
 
 =item * C<-prompt>
 
+(Available since version 0.017)
+
 If set with a true value, F<Makefile.PL> is modified to include interactive
 prompts.
 
 =item * C<-default>
+
+(Available since version 0.006)
 
 If set with a true value, non-interactive installs will automatically
 fold the feature's prerequisites into the regular prerequisites.
