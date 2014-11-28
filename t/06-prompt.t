@@ -47,6 +47,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     is(
         exception { $tzil->build },
         undef,
@@ -128,6 +129,9 @@ binmode STDERR, ':encoding(UTF-8)';
         # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -156,6 +160,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     is(
         exception { $tzil->build },
         undef,
@@ -237,6 +242,9 @@ binmode STDERR, ':encoding(UTF-8)';
         # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -292,6 +300,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     is(
         exception { $tzil->build },
         undef,
@@ -373,6 +382,9 @@ binmode STDERR, ':encoding(UTF-8)';
         # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

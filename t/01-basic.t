@@ -39,6 +39,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -109,6 +110,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -180,6 +182,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -253,6 +256,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -324,6 +328,7 @@ binmode STDERR, ':encoding(UTF-8)';
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
