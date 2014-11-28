@@ -125,6 +125,7 @@ binmode STDERR, ':encoding(UTF-8)';
 \s*\$\QWriteMakefileArgs{PREREQ_PM}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 \}!,
+        # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
 }
@@ -233,6 +234,7 @@ binmode STDERR, ':encoding(UTF-8)';
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 !,
+        # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
 }
@@ -368,6 +370,7 @@ binmode STDERR, ':encoding(UTF-8)';
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
 \s*\$\QWriteMakefileArgs{TEST_REQUIRES}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 !,
+        # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
 }

@@ -148,7 +148,7 @@ sub BUILD
             raw => [
                 "if (prompt('install $description? "
                     . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
-                    . ') =~ /^y/i) {',
+                    . ') =~ /^y/i) {',   # } to mollify vim
                 (map {
                     qq!|  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
                 } sort $self->_prereq_modules),
