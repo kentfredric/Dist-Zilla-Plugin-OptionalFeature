@@ -141,16 +141,15 @@ sub BUILD
 
         (my $description = $self->description) =~ s/'/\\'/g;
 
-        my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs', '0.007')->new(
+        my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs')->new(
             zilla => $self->zilla,
             plugin_name => 'via OptionalFeature (' . ($self->plugin_name || $self->name) . ')',
-            delimiter => '|',
             raw => [
                 "if (prompt('install $description? "
                     . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
                     . ') =~ /^y/i) {',   # } to mollify vim
                 (map {
-                    qq!|  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
+                    qq!  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
                 } sort $self->_prereq_modules),
                 '}',
             ],
