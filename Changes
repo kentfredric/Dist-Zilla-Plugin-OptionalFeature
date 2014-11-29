@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.020     2014-11-29 04:53:50Z
           - when setting up prompting in Makefile.PL for multiple optional
             features, control all prompts from one master plugin to ensure the
             prompt order remains as desired
