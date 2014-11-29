@@ -126,8 +126,8 @@ around BUILDARGS => sub
     };
 };
 
-has _dynamicprereqs => (
-    is => 'ro', isa => 'Dist::Zilla::Plugin::DynamicPrereqs',
+has _dynamicprereqs_prompt => (
+    is => 'ro', isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
         my $self = shift;
@@ -142,23 +142,18 @@ has _dynamicprereqs => (
 
         (my $description = $self->description) =~ s/'/\\'/g;
 
-        my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs')->new(
-            zilla => $self->zilla,
-            plugin_name => 'via OptionalFeature (' . ($self->plugin_name || $self->name) . ')',
-            # TODO: in the future, [DynamicPrereqs] will have more sophisticated
-            # options, so we would just need to pass the prompt text, default
-            # answer, and list of prereqs and phases.
-            raw => [
-                "if (prompt('install $description? "
-                    . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
-                    . ') =~ /^y/i) {',   # } to mollify vim
-                (map {
-                    qq!  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
-                } sort $self->_prereq_modules),
-                '}',
-            ],
-        );
-
+        # TODO: in the future, [DynamicPrereqs] will have more sophisticated
+        # options, so we would just need to pass the prompt text, default
+        # answer, and list of prereqs and phases.
+        [
+            "if (prompt('install $description? "
+                . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
+                . ') =~ /^y/i) {',   # } to mollify vim
+            (map {
+                qq!  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
+            } sort $self->_prereq_modules),
+            '}',
+        ];
     },
 );
 
@@ -180,10 +175,19 @@ sub before_build
 
         $master_plugin = $self;
 
-        push @{ $self->zilla->plugins },
-            reverse map {
-                $_->prompt ? $_->_dynamicprereqs : ()
-            } grep { $_->isa(__PACKAGE__) } @{ $self->zilla->plugins };
+        my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs')->new(
+            zilla => $self->zilla,
+            plugin_name => 'via OptionalFeature',
+            raw => [
+                join("\n",
+                    map {
+                        join("\n", $_->prompt ? @{ $_->_dynamicprereqs_prompt } : ())
+                    } grep { $_->isa(__PACKAGE__) } @{ $self->zilla->plugins },
+                )
+            ],
+        );
+
+        push @{ $self->zilla->plugins }, $plugin;
     }
 }
 

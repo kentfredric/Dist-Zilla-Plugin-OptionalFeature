@@ -146,12 +146,7 @@ cmp_deeply(
                 },
                 superhashof({
                     class   => 'Dist::Zilla::Plugin::DynamicPrereqs',
-                    name    => 'via OptionalFeature (FeatureTwo)',
-                    version => Dist::Zilla::Plugin::DynamicPrereqs->VERSION,
-                }),
-                superhashof({
-                    class   => 'Dist::Zilla::Plugin::DynamicPrereqs',
-                    name    => 'via OptionalFeature (FeatureOne)',
+                    name    => 'via OptionalFeature',
                     version => Dist::Zilla::Plugin::DynamicPrereqs->VERSION,
                 }),
             ],
@@ -172,13 +167,11 @@ like(
     qr!
 # inserted by .*$
 \Qif (prompt('install feature description 1? [Y/n]', 'Y') =~ /^y/i) {\E
-\s*\$\QWriteMakefileArgs{PREREQ_PM}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
-\s*\$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
+  \$\QWriteMakefileArgs{PREREQ_PM}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
+  \$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
 \}
-\n*
-# inserted by .*$
 \Qif (prompt('install feature description 2? [Y/n]', 'Y') =~ /^y/i) {\E
-\s*\$\QWriteMakefileArgs{PREREQ_PM}{'Baz'} = \E\$\QFallbackPrereqs{'Baz'} = '3.0';\E
+  \$\QWriteMakefileArgs{PREREQ_PM}{'Baz'} = \E\$\QFallbackPrereqs{'Baz'} = '3.0';\E
 \}
 !m,
     # } to mollify vim
