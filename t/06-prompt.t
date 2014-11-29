@@ -39,7 +39,7 @@ binmode STDERR, ':encoding(UTF-8)';
                             -relationship => 'requires',
                             -prompt => 1,
                             -default => 1,
-                            'Foo' => '1.0', 'Bar' => '2.0',
+                            'Foo' => '1.0',
                         },
                     ],
                 ),
@@ -65,7 +65,6 @@ binmode STDERR, ':encoding(UTF-8)';
                     prereqs => {
                         runtime => { requires => {
                             'Foo' => '1.0',
-                            'Bar' => '2.0',
                         } },
                     },
                 },
@@ -76,7 +75,6 @@ binmode STDERR, ':encoding(UTF-8)';
                 # no test recommendations
                 develop => { requires => {
                     'Foo' => '1.0',
-                    'Bar' => '2.0',
                 } },
             },
             x_Dist_Zilla => superhashof({
@@ -97,7 +95,6 @@ binmode STDERR, ':encoding(UTF-8)';
                                 type => 'requires',
                                 prereqs => {
                                     'Foo' => '1.0',
-                                    'Bar' => '2.0',
                                 },
                             },
                         },
@@ -123,12 +120,9 @@ binmode STDERR, ':encoding(UTF-8)';
     like(
         $content,
         qr!
-\Qif (prompt('install feature description? [Y/n]', 'Y') =~ /^y/i) {\E
-  \$\QWriteMakefileArgs{PREREQ_PM}{'Bar'} = \E\$\QFallbackPrereqs{'Bar'} = '2.0';\E
-  \$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0';\E
-\}
+\$\QWriteMakefileArgs{PREREQ_PM}{'Foo'} = \E\$\QFallbackPrereqs{'Foo'} = '1.0'\E
+  \Qif prompt('install feature description? [Y/n]', 'Y') =~ /^y/i;\E
 !,
-        # } to mollify vim
         'Makefile.PL contains the correct code for runtime prereqs with -default = 1',
     );
 

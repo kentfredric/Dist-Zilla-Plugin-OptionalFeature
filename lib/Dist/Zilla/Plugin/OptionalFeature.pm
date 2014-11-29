@@ -142,17 +142,24 @@ has _dynamicprereqs_prompt => (
 
         (my $description = $self->description) =~ s/'/\\'/g;
 
+        my $prompt = "prompt('install $description? "
+                . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
+                . ') =~ /^y/i';
+        my @assignments = map {
+            qq!\$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }'!
+        } sort $self->_prereq_modules;
+
         # TODO: in the future, [DynamicPrereqs] will have more sophisticated
         # options, so we would just need to pass the prompt text, default
         # answer, and list of prereqs and phases.
         [
-            "if (prompt('install $description? "
-                . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
-                . ') =~ /^y/i) {',   # } to mollify vim
-            (map {
-                qq!  \$WriteMakefileArgs{$mm_key}{'$_'} = \$FallbackPrereqs{'$_'} = '${ \$self->_prereq_version($_) }';!
-            } sort $self->_prereq_modules),
-            '}',
+            @assignments > 1
+                ? (
+                    'if (' . $prompt . ') {',   # to mollify vim
+                    (map { '  ' . $_ . ';' } @assignments),
+                    '}',
+                  )
+                : ( @assignments, '  if ' . $prompt . ';' )
         ];
     },
 );
