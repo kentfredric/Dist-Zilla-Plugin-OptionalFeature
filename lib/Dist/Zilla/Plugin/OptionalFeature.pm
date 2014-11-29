@@ -144,6 +144,9 @@ sub BUILD
         my $plugin = use_module('Dist::Zilla::Plugin::DynamicPrereqs')->new(
             zilla => $self->zilla,
             plugin_name => 'via OptionalFeature (' . ($self->plugin_name || $self->name) . ')',
+            # TODO: in the future, [DynamicPrereqs] will have more sophisticated
+            # options, so we would just need to pass the prompt text, default
+            # answer, and list of prereqs and phases.
             raw => [
                 "if (prompt('install $description? "
                     . ($self->default ? "[Y/n]', 'Y'" : "[y/N]', 'N'" )
