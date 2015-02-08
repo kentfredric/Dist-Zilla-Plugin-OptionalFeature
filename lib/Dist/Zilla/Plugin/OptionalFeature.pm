@@ -378,14 +378,18 @@ Defaults to the feature name, if not provided.
 If set with a true value, the prerequisites are added to the distribution's
 metadata as recommended prerequisites (e.g. L<cpanminus> will install
 recommendations with C<--with-recommends>, even when running
-non-interactively). Defaults to false, but I recommend you turn this on.
+non-interactively).
+
+Defaults to C<false>, but I recommend you turn this on.
 
 =item * C<-require_develop>
 
 If set with a true value, the prerequisites are added to the distribution's
 metadata as develop requires prerequisites (e.g. L<cpanminus> will install
 recommendations with C<--with-develop>, even when running
-non-interactively).  Defaults to true.
+non-interactively).
+
+Defaults to C<true>.
 
 =item * C<-prompt>
 
@@ -393,6 +397,9 @@ non-interactively).  Defaults to true.
 
 If set with a true value, F<Makefile.PL> is modified to include interactive
 prompts.
+
+Default is C<true> if L<< C<-relationship>|/-relationship >> is C<requires>.
+C<false> otherwise.
 
 =item * C<-default>
 
@@ -412,10 +419,14 @@ under C<optional_feature> (thanks, miyagawa!)
 The phase of the prequisite(s). Should be one of: build, test, runtime,
 or develop.
 
+Default: C<runtime>
+
 =item * C<-relationship> (or C<-type>)
 
 The relationship of the prequisite(s). Should be one of: requires, recommends,
 suggests, or conflicts.
+
+Default: C<requires>
 
 =back
 
