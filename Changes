@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - Incorporate some minor documentation improvements based on annocpan
+            notes
 
 0.020     2014-11-29 04:53:50Z
           - when setting up prompting in Makefile.PL for multiple optional
